@@ -521,7 +521,7 @@
 
           <div class="hero-carousel lg:col-span-6 relative">
             <div class="glass-panel rounded-3xl p-3 shadow-2xl overflow-hidden text-on-surface">
-              <div class="carousel-container">
+              <div class="carousel-container" id="carousel-container">
                 <!-- [CONFIRMED] real client photo - community/village scene --><div data-status="confirmed" class="carousel-slide active">
                   <img src="./with people.jpeg" alt="Families in the Kashmore community" />
                   <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
@@ -546,9 +546,11 @@
               </div>
               <div class="flex items-center justify-between px-3 pt-3">
                 <div class="flex items-center gap-2">
-                  <button type="button" aria-label="Slide 1" class="carousel-bar" onclick="goToSlide(0)"></button>
-                  <button type="button" aria-label="Slide 2" class="carousel-bar" onclick="goToSlide(1)"></button>
-                  <button type="button" aria-label="Slide 3" class="carousel-bar" onclick="goToSlide(2)"></button>
+                  <span id="carousel-dots" class="flex items-center gap-2">
+                    <button type="button" aria-label="Slide 1" class="carousel-bar" onclick="goToSlide(0)"></button>
+                    <button type="button" aria-label="Slide 2" class="carousel-bar" onclick="goToSlide(1)"></button>
+                    <button type="button" aria-label="Slide 3" class="carousel-bar" onclick="goToSlide(2)"></button>
+                  </span>
                   <span id="slide-counter" class="text-xs font-mono text-outline ml-2">01 / 03</span>
                 </div>
                 <div class="flex items-center gap-1">

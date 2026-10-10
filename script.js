@@ -178,16 +178,54 @@ function hydrateFounders(founders) {
   });
 }
 
+// Build the hero carousel slides & dot indicators from db.json so any number of slides works
+function hydrateHeroCarousel(data) {
+  const slides = (data.hero && data.hero.carousel) || [];
+  const container = document.getElementById('carousel-container');
+  const dotsWrap = document.getElementById('carousel-dots');
+  if (!container || !slides.length) return;
+
+  container.innerHTML = '';
+  slides.forEach((slide, i) => {
+    const div = document.createElement('div');
+    div.className = 'carousel-slide' + (i === 0 ? ' active' : '');
+
+    const img = document.createElement('img');
+    img.src = slide.imageUrl || '';
+    img.alt = slide.caption || 'Water Europa';
+
+    const overlay = document.createElement('div');
+    overlay.className = 'absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white';
+
+    const badge = document.createElement('span');
+    badge.className = 'text-xs uppercase font-bold text-secondary-container tracking-wider';
+    badge.textContent = slide.badge || '';
+
+    const caption = document.createElement('p');
+    caption.className = 'font-serif text-lg font-medium';
+    caption.textContent = slide.caption || '';
+
+    overlay.append(badge, caption);
+    div.append(img, overlay);
+    container.appendChild(div);
+  });
+
+  if (dotsWrap) {
+    dotsWrap.innerHTML = '';
+    slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'carousel-bar' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', `Slide ${i + 1}`);
+      btn.addEventListener('click', () => { if (window.goToSlide) window.goToSlide(i); });
+      dotsWrap.appendChild(btn);
+    });
+  }
+}
+
 // Hydrate hero carousel / crisis / gallery photos from db.json
 function hydrateMedia(data) {
-  const slideImgs = document.querySelectorAll('.carousel-slide img');
-  ((data.hero && data.hero.carousel) || []).forEach((slide, i) => {
-    const img = slideImgs[i];
-    if (img && slide.imageUrl) {
-      img.src = slide.imageUrl;
-      img.alt = slide.caption || img.alt;
-    }
-  });
+  hydrateHeroCarousel(data);
 
   const crisisImg = document.getElementById('crisis-image');
   const crisis = data.crisis && data.crisis.image;

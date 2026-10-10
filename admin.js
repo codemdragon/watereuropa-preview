@@ -8,7 +8,7 @@
 'use strict';
 
 // Default Repository Settings (editable in Settings tab)
-let REPO_OWNER = localStorage.getItem('we_cms_owner') || 'codemdragon';
+let REPO_OWNER = localStorage.getItem('we_cms_owner') || 'somilkeswani';
 let REPO_NAME  = localStorage.getItem('we_cms_repo')  || 'watereuropa';
 let BRANCH     = localStorage.getItem('we_cms_branch') || 'main';
 const DB_PATH    = 'db.json';
@@ -862,7 +862,12 @@ function renderHeroPanel() {
     <div class="p-4 bg-mist/50 rounded-2xl border border-outline-variant space-y-3">
       <div class="flex items-center justify-between">
         <span class="text-xs font-bold text-primary">Slide #${idx + 1}</span>
-        <span class="badge-hint">${slide.recommendedSize || '1200 x 800 px'}</span>
+        <div class="flex items-center gap-2">
+          <span class="badge-hint">${slide.recommendedSize || '1200 x 800 px'}</span>
+          <button type="button" onclick="removeCarouselSlide(${idx})" class="text-xs text-red-500 hover:underline flex items-center gap-0.5">
+            <span class="material-symbols-outlined text-sm">delete</span><span>Remove</span>
+          </button>
+        </div>
       </div>
       <div class="flex flex-col sm:flex-row items-center gap-4">
         <div class="w-28 h-20 rounded-xl overflow-hidden bg-white shrink-0 border border-outline-variant">
@@ -882,7 +887,35 @@ function renderHeroPanel() {
         <input type="text" value="${escAttr(slide.caption || '')}" id="slide-caption-${idx}" class="admin-input text-xs" placeholder="Slide Caption / Paragraph..." />
       </div>
     </div>
-  `).join('');
+  `).join('') || '<p class="text-xs text-on-surface-variant">No carousel slides yet. Click \'Add slide\' to create one.</p>';
+}
+
+function addCarouselSlide() {
+  collectAllInputs();
+  draftData.hero = draftData.hero || {};
+  draftData.hero.carousel = draftData.hero.carousel || [];
+  const n = draftData.hero.carousel.length + 1;
+  draftData.hero.carousel.push({
+    id: `slide${n}`,
+    badge: `Slide ${String(n).padStart(2, '0')}`,
+    caption: '',
+    imageUrl: '',
+    recommendedSize: '1200 x 800 px (3:2 ratio)'
+  });
+  renderHeroPanel();
+  saveDraft();
+}
+
+function removeCarouselSlide(i) {
+  if (!draftData.hero || !Array.isArray(draftData.hero.carousel) || draftData.hero.carousel.length <= 1) {
+    showToast('At least one carousel slide is required.', 'error');
+    return;
+  }
+  if (!confirm('Remove this carousel slide?')) return;
+  collectAllInputs();
+  draftData.hero.carousel.splice(i, 1);
+  renderHeroPanel();
+  saveDraft();
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -952,10 +985,6 @@ function renderStoryPanel() {
               <label class="admin-label">Role / Title</label>
               <input type="text" id="founder-role-${idx}" value="${escAttr(f.role)}" class="admin-input" />
             </div>
-          </div>
-          <div>
-            <label class="admin-label">Short Bio (one line)</label>
-            <input type="text" id="founder-bio-${idx}" value="${escAttr(f.bio || '')}" class="admin-input" />
           </div>
           <div>
             <label class="admin-label">Photo Image URL</label>
@@ -1352,8 +1381,6 @@ function collectAllInputs() {
       const role = document.getElementById(`founder-role-${idx}`)?.value;
       const img = document.getElementById(`founder-img-${idx}`)?.value;
       const pos = document.getElementById(`founder-pos-${idx}`)?.value;
-      const bio = document.getElementById(`founder-bio-${idx}`)?.value;
-      if (bio !== undefined) f.bio = bio;
       if (name !== undefined) f.name = name;
       if (role !== undefined) f.role = role;
       if (img !== undefined) f.imageUrl = img;
