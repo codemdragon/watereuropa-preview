@@ -52,7 +52,7 @@
     "email": "somilkeswani64@gmail.com",
     "phone": "+92 3354118800",
     "locationText": "Kashmore, Sindh, Pakistan",
-    "formspreeUrl": "https://formspree.io/f/xyz"
+    "formspreeUrl": "https://formspree.io/f/xqpeblpr"
   },
   "donation": {
     "showTiers": true,
@@ -375,7 +375,7 @@
     "contactEmail": true,
     "contactPhone": false,
     "whatsappNumber": true,
-    "formspreeUrl": false,
+    "formspreeUrl": true,
     "photoHero1": true,
     "photoHero2": true,
     "photoHero3": true,
