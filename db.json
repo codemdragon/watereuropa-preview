@@ -43,14 +43,14 @@
   ],
   "floatingWidget": {
     "platform": "whatsapp",
-    "numberOrHandle": "920000000000",
+    "numberOrHandle": "923354118800",
     "message": "Hello Water Europa team!",
     "label": "Chat with us",
     "enabled": true
   },
   "contact": {
-    "email": "example@gmail.com",
-    "phone": "+92 300 0000000",
+    "email": "somilkeswani64@gmail.com",
+    "phone": "+92 3354118800",
     "locationText": "Kashmore, Sindh, Pakistan",
     "formspreeUrl": "https://formspree.io/f/xyz"
   },
@@ -69,22 +69,22 @@
     "defaultTierIndex": 1,
     "tiers": [
       {
-        "amount": "$10",
+        "amount": "Rs50",
         "note": "",
         "enabled": true
       },
       {
-        "amount": "$20",
+        "amount": "Rs500",
         "note": "",
         "enabled": true
       },
       {
-        "amount": "$50",
+        "amount": "Rs1000",
         "note": "",
         "enabled": true
       },
       {
-        "amount": "$100",
+        "amount": "Rs5000",
         "note": "",
         "enabled": true
       }
@@ -146,20 +146,16 @@
   },
   "parallaxBackgrounds": {
     "storyBridgeBg": {
-      "imageUrl": "./Tents.jpeg",
-      "recommendedSize": "1920 x 1080 px (16:9 widescreen)"
+      "imageUrl": "./Tents.jpeg"
     },
     "kashmoreBg": {
-      "imageUrl": "./Street2.jpeg",
-      "recommendedSize": "1920 x 1080 px (16:9 widescreen)"
+      "imageUrl": "./Street2.jpeg"
     },
     "rightToWaterBg": {
-      "imageUrl": "./drybuildings.jpeg",
-      "recommendedSize": "1920 x 1080 px (16:9 widescreen)"
+      "imageUrl": "./drybuildings.jpeg"
     },
     "donateBg": {
-      "imageUrl": "./with people.jpeg",
-      "recommendedSize": "1920 x 1080 px (16:9 widescreen)"
+      "imageUrl": "./with people.jpeg"
     }
   },
   "quotes": {
@@ -376,9 +372,9 @@
     "ctaUrl": "#donate"
   },
   "verification": {
-    "contactEmail": false,
+    "contactEmail": true,
     "contactPhone": false,
-    "whatsappNumber": false,
+    "whatsappNumber": true,
     "formspreeUrl": false,
     "photoHero1": true,
     "photoHero2": true,
@@ -387,7 +383,7 @@
     "photoGallery1": true,
     "photoGallery2": true,
     "photoGallery3": true,
-    "pledgeAmounts": false,
+    "pledgeAmounts": true,
     "map_kashmore": false
   },
   "svgIcons": {
