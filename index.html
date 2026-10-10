@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <!-- [UNVERIFIED / FABRICATED] page title wording not in brief --><title data-status="fabricated">Water Europa: Clean Drinking Water for Underserved Rural Communities</title>
+  <!-- [CONFIRMED] from PDF "What is Water Europa?" --><meta data-status="confirmed" name="description" content="Water Europa is a community water initiative in Kashmore, Sindh, Pakistan. The project uses reverse osmosis to turn saline groundwater into safe drinking water for communities in Kashmore." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#0f2937",
+            "primary-dark": "#071922",
+            "secondary": "#006874",
+            "secondary-container": "#94edfd",
+            "mist": "#f0f7fa",
+            "mist-soft": "#f6fafc",
+            "sand": "#f9f8f5",
+            "sand-tint": "#f3ede3",
+            "eco-sage": "#2e7d5a",
+            "eco-sage-light": "#e8f5ee",
+            "on-surface": "#0f2937",
+            "on-surface-variant": "#475569",
+            "outline-variant": "#dbe4ea",
+            "outline": "#7d909c"
+          },
+          fontFamily: {
+            "serif": ["Merriweather", "serif"],
+            "sans": ["Plus Jakarta Sans", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ==========================================================================
+       WATER EUROPA — Animations, Reveals, Parallax & UI
+       ========================================================================== */
+
+    :root {
+      --color-primary: #0f2937;
+      --color-primary-dark: #071922;
+      --color-secondary: #006874;
+      --color-secondary-light: #94edfd;
+      --color-accent-lime: #2e7d5a;
+      --color-accent-lime-light: #e8f5ee;
+      --color-bg-white: #ffffff;
+      --color-bg-mist: #f0f7fa;
+      --color-bg-sand: #f9f8f5;
+      --color-text-main: #0f2937;
+      --color-text-muted: #475569;
+      --color-border: #dbe4ea;
+
+      --radius-sm: 0.5rem;
+      --radius-md: 1rem;
+      --radius-lg: 1.5rem;
+      --radius-xl: 2.25rem;
+      --radius-pill: 9999px;
+
+      --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-spring: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      position: relative;
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--color-text-main);
+      background-color: var(--color-bg-white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .font-serif { font-family: 'Merriweather', serif; }
+
+    .main-header {
+      position: fixed; top: 0; left: 0; right: 0; width: 100%; max-width: 100vw; z-index: 1000;
+      transition: var(--transition-smooth); background: transparent;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .main-header.scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: 0 4px 20px rgba(15, 41, 55, 0.06);
+    }
+
+    .main-header.scrolled .nav-link { color: var(--color-text-muted); }
+    .main-header.scrolled .nav-link:hover { color: var(--color-secondary); }
+    .main-header.scrolled .brand-title { color: var(--color-primary); }
+    .main-header.scrolled .brand-sub { color: var(--color-secondary); }
+
+    .hero-section {
+      position: relative; min-height: 95vh; display: flex; align-items: center;
+      background-image:
+        linear-gradient(135deg, rgba(10, 28, 40, 0.88) 0%, rgba(10, 28, 40, 0.65) 50%, rgba(0, 80, 90, 0.55) 100%),
+        url('./Tents.jpeg');
+      background-size: cover; background-position: center; background-repeat: no-repeat;
+      padding-top: 7rem; padding-bottom: 5rem; color: #ffffff; overflow: hidden;
+    }
+
+    .hero-badge { opacity: 0; transform: translateY(16px); animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+    .hero-title { opacity: 0; transform: translateY(20px); animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards; }
+    .hero-body { opacity: 0; transform: translateY(16px); animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards; }
+    .hero-cta { opacity: 0; transform: translateY(14px); animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards; }
+    .hero-meta { opacity: 0; transform: translateY(10px); animation: fadeSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.05s forwards; }
+    .hero-carousel { opacity: 0; transform: translateX(30px); animation: fadeSlideLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
+
+    @keyframes fadeSlideUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeSlideLeft { to { opacity: 1; transform: translateX(0); } }
+
+    .reveal-left { opacity: 0; transform: translateX(-48px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-right { opacity: 0; transform: translateX(48px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-bottom { opacity: 0; transform: translateY(40px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal-left.revealed, .reveal-right.revealed, .reveal-bottom.revealed { opacity: 1; transform: translate(0, 0); }
+    .reveal-left:nth-child(2), .reveal-right:nth-child(2), .reveal-bottom:nth-child(2) { transition-delay: 0.1s; }
+    .reveal-left:nth-child(3), .reveal-right:nth-child(3), .reveal-bottom:nth-child(3) { transition-delay: 0.2s; }
+
+    @media (max-width: 768px) {
+      .reveal-left, .reveal-right { transform: translateY(20px); }
+      .hero-carousel { transform: translateY(20px); animation-name: fadeSlideUp; }
+    }
+
+    .scroll-cue {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.5); display: flex; flex-direction: column; align-items: center;
+      text-decoration: none; animation: scrollBounce 2s ease-in-out infinite; z-index: 10;
+    }
+    .scroll-cue .material-symbols-outlined { font-size: 2rem; }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+      50%       { transform: translateX(-50%) translateY(6px); opacity: 1; }
+    }
+
+    .parallax-section {
+      position: relative;
+      background-image: url('./Tents.jpeg');
+      background-attachment: fixed; background-size: cover; background-position: center; background-repeat: no-repeat; color: #ffffff;
+    }
+    .parallax-section-2 {
+      position: relative;
+      background-image: url('./with people.jpeg');
+      background-attachment: fixed; background-size: cover; background-position: center; background-repeat: no-repeat; color: #ffffff;
+    }
+    .parallax-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10, 28, 40, 0.86) 0%, rgba(0, 90, 100, 0.68) 100%); }
+    .parallax-overlay-2 { background: linear-gradient(160deg, rgba(10, 28, 40, 0.82) 0%, rgba(0, 90, 100, 0.60) 100%); }
+    .parallax-overlay-3 { background: linear-gradient(135deg, rgba(10, 30, 40, 0.80) 0%, rgba(46, 125, 90, 0.50) 100%); }
+
+    .glass-panel { background: rgba(255, 255, 255, 0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.95); box-shadow: 0 12px 36px -4px rgba(15, 41, 55, 0.08); }
+    .glass-subtle { background: rgba(240, 247, 250, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(211, 223, 230, 0.6); }
+
+    .carousel-container { position: relative; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-xl); background: #000; }
+    .carousel-slide { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); transform: scale(1.03); }
+    .carousel-slide.active { opacity: 1; visibility: visible; transform: scale(1); }
+    .carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
+    .carousel-bar { height: 3px; border-radius: 99px; width: 28px; background: rgba(100, 130, 150, 0.35); border: none; cursor: pointer; transition: background 0.3s ease, width 0.3s ease; padding: 0; }
+    .carousel-bar.active { background: var(--color-secondary); width: 40px; }
+
+    .timeline-stem { position: relative; }
+    .timeline-stem::before { content: ''; position: absolute; top: 0; bottom: 0; left: 1.5rem; width: 2px; background: var(--color-border); }
+    @media (min-width: 768px) { .timeline-stem::before { left: 50%; transform: translateX(-50%); } }
+    .timeline-node { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .timeline-node:hover { transform: translateX(-50%) scale(1.2); box-shadow: 0 0 0 6px rgba(0, 104, 116, 0.12); }
+
+    .floating-wrapper { position: relative; }
+    .floating-input { width: 100%; padding: 1.25rem 1rem 0.5rem 1rem; font-size: 0.95rem; color: var(--color-text-main); background-color: var(--color-bg-mist); border: 1px solid var(--color-border); border-radius: var(--radius-md); transition: var(--transition-smooth); outline: none; font-family: 'Plus Jakarta Sans', sans-serif; }
+    .floating-input:focus { border-color: var(--color-secondary); background-color: #ffffff; box-shadow: 0 0 0 4px rgba(0, 104, 116, 0.12); }
+    .floating-label { position: absolute; left: 1rem; top: 0.95rem; font-size: 0.85rem; color: var(--color-text-muted); pointer-events: none; transition: var(--transition-smooth); }
+    .floating-input:focus ~ .floating-label, .floating-input:not(:placeholder-shown) ~ .floating-label { top: 0.35rem; font-size: 0.7rem; font-weight: 600; color: var(--color-secondary); }
+
+    .tier-chip { padding: 1rem 0.75rem; border-radius: var(--radius-md); border: 2px solid var(--color-border); background: var(--color-bg-mist); text-align: center; cursor: pointer; transition: var(--transition-smooth); }
+    .tier-chip:hover { border-color: var(--color-secondary); transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0, 104, 116, 0.12); }
+    .tier-chip.active { border-color: var(--color-secondary); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 104, 116, 0.15); }
+
+    @media (max-width: 768px) { .parallax-section, .parallax-section-2 { background-attachment: scroll; } }
+
+    .mobile-nav-overlay { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 2000; pointer-events: none; visibility: hidden; overflow: hidden; }
+    .mobile-nav-overlay.open { pointer-events: auto; visibility: visible; }
+    .mobile-nav-backdrop { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1999; background: rgba(10, 25, 35, 0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+    .mobile-nav-backdrop.open { opacity: 1; pointer-events: auto; }
+    .mobile-nav-drawer { position: absolute; top: 0; right: 0; height: 100%; width: min(85vw, 340px); max-width: 85vw; z-index: 2001; background: #ffffff; box-shadow: -8px 0 40px rgba(0,0,0,0.18); padding: 1.75rem 1.5rem 2rem; overflow-y: auto; transform: translateX(105%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); visibility: hidden; }
+    .mobile-nav-overlay.open .mobile-nav-drawer { transform: translateX(0); visibility: visible; }
+    .mobile-nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.875rem; font-size: 0.9rem; font-weight: 600; color: var(--color-text-main); text-decoration: none; transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+    .mobile-nav-link:hover { background: rgba(0, 104, 116, 0.07); color: var(--color-secondary); transform: translateX(4px); }
+    .mobile-nav-link .material-symbols-outlined { font-size: 1.1rem; }
+
+    #hamburger-btn.nav-open .hamburger-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    #hamburger-btn.nav-open .hamburger-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    #hamburger-btn.nav-open .hamburger-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); width: 1.25rem; }
+    .hamburger-bar { transform-origin: center; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, width 0.25s ease; }
+    .main-header.scrolled #hamburger-btn { background: rgba(15, 41, 55, 0.06); border-color: var(--color-border); }
+    .main-header.scrolled .hamburger-bar { background-color: var(--color-primary); }
+
+    .floating-wa-btn {
+      position: fixed; bottom: 1.75rem; right: 1.75rem; z-index: 9999; display: flex; align-items: center; gap: 0;
+      background: linear-gradient(135deg, #1ebe5d 0%, #25d366 55%, #128c7e 100%); color: #ffffff; border-radius: 9999px; padding: 0;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5), 0 2px 8px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255,255,255,0.22);
+      text-decoration: none; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.78rem; font-weight: 700; white-space: nowrap; overflow: hidden;
+      width: 3.4rem; height: 3.4rem; max-width: 3.4rem;
+      transition: max-width 0.45s cubic-bezier(0.16, 1, 0.3, 1), width 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, transform 0.3s ease;
+      animation: waBounceIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1.4s both;
+    }
+    .floating-wa-btn::after { content: ''; position: absolute; inset: -4px; border-radius: 9999px; border: 2px solid rgba(37, 211, 102, 0.45); animation: waPulseRing 2.4s ease-out infinite; pointer-events: none; }
+    @keyframes waPulseRing { 0% { opacity: 0.7; transform: scale(1); } 70% { opacity: 0; transform: scale(1.28); } 100% { opacity: 0; transform: scale(1.28); } }
+    .floating-wa-btn:hover { max-width: 12rem; width: auto; padding-right: 1.1rem; box-shadow: 0 8px 28px rgba(37, 211, 102, 0.6), 0 2px 10px rgba(0, 0, 0, 0.16); transform: translateY(-2px); gap: 0.55rem; }
+    .floating-wa-icon { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 3.4rem; height: 3.4rem; border-radius: 9999px; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.2); }
+    .floating-wa-label { opacity: 0; transform: translateX(-6px); transition: opacity 0.2s ease 0.12s, transform 0.2s ease 0.12s; pointer-events: none; letter-spacing: 0.01em; }
+    .floating-wa-btn:hover .floating-wa-label { opacity: 1; transform: translateX(0); }
+    @keyframes waBounceIn { 0% { opacity: 0; transform: scale(0.4) translateY(20px); } 65% { opacity: 1; transform: scale(1.08) translateY(-3px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+    @media (max-width: 480px) { .floating-wa-btn { width: 3.1rem; height: 3.1rem; max-width: 3.1rem; bottom: 1.25rem; right: 1.25rem; } .floating-wa-icon { width: 3.1rem; height: 3.1rem; } .floating-wa-btn:hover { max-width: 11rem; } }
+  
+    /* AUDIT VIEW: open the page with ?audit to outline content status */
+    body.audit [data-status="confirmed"]   { outline: 2px solid #16a34a; outline-offset: 3px; }
+    body.audit [data-status="fabricated"]  { outline: 2px dashed #dc2626; outline-offset: 3px; }
+    body.audit [data-status="placeholder"] { outline: 2px dotted #d97706; outline-offset: 3px; }
+    body.audit [data-admin] { box-shadow: 0 0 0 3px #7c3aed; }
+    body.audit::after { content: "AUDIT: green = confirmed, red dashed = unverified/fabricated, orange dotted = placeholder, purple = admin-panel value"; position: fixed; left: 0; right: 0; bottom: 0; z-index: 99999; background: #111; color: #fff; font: 600 12px/1.4 sans-serif; padding: 6px 10px; text-align: center; }
+
+    /* ============================================================
+       PROGRESSIVE VERTICAL TIMELINE — Future Plans
+       Pure HTML/CSS/JS. Reveals cards + lights the rail as you scroll.
+       ============================================================ */
+    .we-timeline { position: relative; padding: 1rem 0 2rem; }
+
+    /* Static grey rail */
+    .we-timeline-rail {
+      position: absolute; top: 1rem; bottom: 1rem;
+      left: 1.5rem; width: 3px;
+      background: var(--color-border);
+      border-radius: 99px;
+      transform: translateX(-50%);
+      overflow: hidden;
+      z-index: 1;
+    }
+    /* Animated fill overlay — height set by JS */
+    .we-timeline-rail-fill {
+      position: absolute; top: 0; left: 0; right: 0; height: 0%;
+      background: linear-gradient(180deg, var(--color-accent-lime) 0%, var(--color-secondary) 100%);
+      border-radius: 99px;
+      transition: height 0.15s linear;
+      box-shadow: 0 0 12px rgba(0, 104, 116, 0.35);
+    }
+    @media (min-width: 768px) { .we-timeline-rail { left: 50%; } }
+
+    /* Items */
+    .we-timeline-item {
+      position: relative;
+      padding-left: 4.5rem;     /* room for node + rail on mobile */
+      padding-bottom: 3rem;
+    }
+    .we-timeline-item:last-child { padding-bottom: 0; }
+
+    @media (min-width: 768px) {
+      .we-timeline-item {
+        width: calc(50% - 4rem);
+        padding-left: 0;
+        padding-bottom: 4rem;
+      }
+      .we-timeline-item.odd  { margin-right: auto; margin-left: 0; text-align: right; }
+      .we-timeline-item.even { margin-left: calc(50% + 4rem); text-align: left;  }
+    }
+
+    /* Node (dot on the rail) */
+    .we-timeline-node {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;          /* mobile: rail x */
+      width: 2.5rem; height: 2.5rem;
+      border-radius: 9999px;
+      background: #fff;
+      border: 3px solid var(--color-border);
+      display: flex; align-items: center; justify-content: center;
+      transform: translate(-50%, 0) scale(0);
+      transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  border-color 0.4s ease, box-shadow 0.3s ease;
+      z-index: 3;
+      box-shadow: 0 4px 12px rgba(15, 41, 55, 0.06);
+    }
+    .we-timeline-item.revealed .we-timeline-node {
+      transform: translate(-50%, 0) scale(1);
+    }
+    .we-timeline-node-icon {
+      font-size: 1.15rem;
+      color: var(--color-text-muted);
+      transition: color 0.4s ease;
+      font-variation-settings: 'FILL' 0, 'wght' 500;
+    }
+
+    @media (min-width: 768px) {
+      .we-timeline-item.odd .we-timeline-node  { left: auto; right: -4rem; transform: translateX(50%) scale(0); }
+      .we-timeline-item.even .we-timeline-node { left: -4rem;  transform: translateX(-50%) scale(0); }
+      .we-timeline-item.odd.revealed .we-timeline-node  { transform: translateX(50%)  scale(1); }
+      .we-timeline-item.even.revealed .we-timeline-node { transform: translateX(-50%) scale(1); }
+    }
+
+    /* Status-based node colors */
+    .we-timeline-item.done     .we-timeline-node { border-color: var(--color-accent-lime); }
+    .we-timeline-item.done     .we-timeline-node-icon { color: var(--color-accent-lime); }
+    .we-timeline-item.upcoming .we-timeline-node { border-color: var(--color-secondary); }
+    .we-timeline-item.upcoming .we-timeline-node-icon { color: var(--color-secondary); }
+    .we-timeline-item.future   .we-timeline-node { border-color: #c5d0d6; }
+    .we-timeline-item.future   .we-timeline-node-icon { color: #7d909c; }
+
+    /* Pulsing ring for the "in progress" node */
+    .we-timeline-item.upcoming .we-timeline-node::after {
+      content: '';
+      position: absolute; inset: -3px;
+      border-radius: 9999px;
+      border: 2px solid var(--color-secondary);
+      opacity: 0.55;
+      animation: weNodePulse 2.6s ease-out infinite;
+      pointer-events: none;
+    }
+    @keyframes weNodePulse {
+      0%   { transform: scale(1);    opacity: 0.55; }
+      70%  { transform: scale(1.55); opacity: 0;    }
+      100% { transform: scale(1.55); opacity: 0;    }
+    }
+
+    /* Card */
+    .we-timeline-card {
+      background: #fff;
+      border: 1.5px solid var(--color-border);
+      border-radius: 1.5rem;
+      padding: 2rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .we-timeline-item.revealed .we-timeline-card { opacity: 1; transform: translateY(0); }
+    .we-timeline-card:hover {
+      box-shadow: 0 18px 44px -10px rgba(15, 41, 55, 0.16);
+      border-color: var(--color-secondary);
+    }
+
+    /* Alternating slide-in direction on desktop */
+    @media (min-width: 768px) {
+      .we-timeline-item.odd  .we-timeline-card { transform: translateX(-32px); }
+      .we-timeline-item.even .we-timeline-card { transform: translateX(32px);  }
+      .we-timeline-item.revealed .we-timeline-card { transform: translate(0, 0); }
+    }
+
+    /* Status top stripe */
+    .we-timeline-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 1.5rem 1.5rem 0 0;
+      transition: background 0.4s ease;
+    }
+    .we-timeline-item.done     .we-timeline-card::before { background: var(--color-accent-lime); }
+    .we-timeline-item.upcoming .we-timeline-card::before { background: var(--color-secondary); }
+    .we-timeline-item.future   .we-timeline-card::before { background: #c5d0d6; }
+
+    /* Watermark year */
+    .we-timeline-year {
+      font-family: 'Merriweather', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      position: absolute;
+      top: 1.25rem; right: 1.5rem;
+      pointer-events: none;
+      user-select: none;
+    }
+    .we-timeline-item.odd  .we-timeline-year { right: auto; left: 1.5rem; }
+    .we-timeline-item.done     .we-timeline-year { color: var(--color-accent-lime); opacity: 0.14; }
+    .we-timeline-item.upcoming .we-timeline-year { color: var(--color-secondary); opacity: 0.12; }
+    .we-timeline-item.future   .we-timeline-year { color: #7d909c; opacity: 0.10; }
+
+    /* Status chip */
+    .we-timeline-status {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 0.375rem;
+    }
+    .we-timeline-item.done     .we-timeline-status { background: var(--color-accent-lime-light); color: var(--color-accent-lime); border-left: 3px solid var(--color-accent-lime); }
+    .we-timeline-item.upcoming .we-timeline-status { background: rgba(0,104,116,0.08);            color: var(--color-secondary);   border-left: 3px solid var(--color-secondary); }
+    .we-timeline-item.future   .we-timeline-status { background: #f0f4f6;                          color: #7d909c;                  border-left: 3px solid #c5d0d6; }
+
+    /* Reduced-motion safety net */
+    @media (prefers-reduced-motion: reduce) {
+      .we-timeline-card, .we-timeline-node, .we-timeline-rail-fill { transition: none !important; }
+      .we-timeline-item .we-timeline-card { opacity: 1 !important; transform: none !important; }
+      .we-timeline-item .we-timeline-node { transform: translate(-50%, 0) scale(1) !important; }
+      @media (min-width: 768px) {
+        .we-timeline-item.odd  .we-timeline-node { transform: translateX(50%)  scale(1) !important; }
+        .we-timeline-item.even .we-timeline-node { transform: translateX(-50%) scale(1) !important; }
+      }
+      .we-timeline-item.upcoming .we-timeline-node::after { animation: none; }
+    }
+  </style>
+</head>
+<!--
+  CONTENT STATUS KEY (search this file for data-status):
+    data-status="confirmed"   -> comes from the client brief
+    data-status="fabricated"  -> added by z.ai, NOT in the brief. Verify or replace
+    data-status="placeholder" -> stock/generated image or dummy value awaiting real content
+    data-admin="..."          -> value to set in the admin panel (contact-email, whatsapp, formspree-endpoint, map-embed)
+  Preview the colour-coded view by opening index.html?audit
+-->
+<body class="bg-white text-on-surface font-sans antialiased selection:bg-secondary/15 selection:text-secondary">
+
+  <!-- STICKY NAVBAR -->
+  <header class="main-header" id="main-header">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between h-20">
+      <a href="#hero" class="flex items-center gap-3 group z-10 relative">
+        <img src="./Logo.png" alt="Water Europa Logo" class="w-10 h-10 object-contain rounded-xl drop-shadow-sm transition-transform group-hover:scale-105" />
+        <div class="flex flex-col">
+          <span class="brand-title font-serif text-lg md:text-xl font-bold tracking-tight text-white transition-colors">WATER EUROPA</span>
+          <!-- [CONFIRMED] descriptor from PDF. Tagline itself still not provided --><span data-status="confirmed" class="brand-sub text-[10px] uppercase font-semibold text-secondary-container tracking-widest transition-colors">Community Water Initiative</span>
+        </div>
+      </a>
+      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+        <a href="#hero" class="nav-link text-white/90 hover:text-white transition-colors">Home</a>
+        <a href="#mission" class="nav-link text-white/80 hover:text-white transition-colors">The Crisis</a>
+        <a href="#story" class="nav-link text-white/80 hover:text-white transition-colors">Our Story</a>
+        <a href="#kashmore" class="nav-link text-white/80 hover:text-white transition-colors">Kashmore</a>
+        <a href="#roadmap" class="nav-link text-white/80 hover:text-white transition-colors">Future Plans</a>
+        <a href="#where-we-are" class="nav-link text-white/80 hover:text-white transition-colors">Location</a>
+        <a href="#donate" class="nav-link text-white/80 hover:text-white transition-colors">Support</a>
+      </nav>
+      <div class="flex items-center gap-3 z-10 relative">
+        <a href="#donate" class="hidden sm:flex bg-secondary hover:bg-primary text-white font-semibold text-xs md:text-sm px-5 py-2.5 rounded-full shadow-sm hover:shadow-md transition-all items-center gap-2">
+          <span class="material-symbols-outlined text-base">water_drop</span><span>Support us</span>
+        </a>
+        <button id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav" class="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 transition-all gap-1.5 p-2.5">
+          <span class="hamburger-bar block w-5 h-0.5 bg-white rounded-full transition-all"></span>
+          <span class="hamburger-bar block w-5 h-0.5 bg-white rounded-full transition-all"></span>
+          <span class="hamburger-bar block w-4 h-0.5 bg-white rounded-full transition-all"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div id="mobile-nav" class="mobile-nav-overlay" aria-hidden="true">
+    <div class="mobile-nav-drawer">
+      <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-2">
+          <img src="./Logo.png" alt="Water Europa" class="w-8 h-8 object-contain rounded-lg" />
+          <span class="font-serif text-base font-bold text-primary">WATER EUROPA</span>
+        </div>
+        <button id="close-nav-btn" aria-label="Close navigation" class="w-9 h-9 rounded-full bg-outline-variant/40 hover:bg-secondary/10 flex items-center justify-center transition-colors">
+          <span class="material-symbols-outlined text-on-surface-variant">close</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-1">
+        <a href="#hero" class="mobile-nav-link"><span class="material-symbols-outlined text-secondary">home</span> Home</a>
+        <a href="#mission" class="mobile-nav-link"><span class="material-symbols-outlined text-secondary">water</span> The Crisis</a>
+        <a href="#story" class="mobile-nav-link"><span class="material-symbols-outlined text-secondary">groups</span> Our Story</a>
+        <a href="#kashmore" class="mobile-nav-link"><span class="material-symbols-outlined text-secondary">factory</span> Kashmore Plant</a>
+        <a href="#roadmap" class="mobile-nav-link"><span class="material-symbols-outlined text-secondary">timeline</span> Future Plans</a>
+        <a href="#where-we-are" class="mobile-nav-link"><span class="material-symbols-outlined text-secondary">location_on</span> Location</a>
+        <a href="#donate" class="mobile-nav-link"><span class="material-symbols-outlined text-secondary">favorite</span> Support & Donate</a>
+      </nav>
+      <div class="mt-8 pt-6 border-t border-outline-variant">
+        <a href="#donate" class="w-full flex items-center justify-center gap-2 bg-secondary hover:bg-primary text-white font-semibold text-sm px-6 py-3.5 rounded-full shadow transition-all">
+          <span class="material-symbols-outlined text-base">water_drop</span><span>Support us</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-nav-backdrop" class="mobile-nav-backdrop"></div>
+
+  <main>
+    <!-- 1. HERO -->
+    <section class="hero-section" id="hero">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-6 flex flex-col justify-center">
+            <!-- [CONFIRMED] "community water initiative" per PDF. Old "Student-Led" label removed (not in brief) --><div data-status="confirmed" class="hero-badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/15 backdrop-blur-md border border-white/25 text-secondary-container mb-6 w-fit">
+              <span class="material-symbols-outlined text-sm">local_drink</span><!-- [OLD FABRICATED TEXT]: Student-Led Safe Water Initiative --><span>Community Water Initiative</span>
+            </div>
+            <!-- [PLACEHOLDER] tagline derived from Somil's sentence "focuses on making safe drinking water more accessible to local families". Confirm with client --><h1 data-status="placeholder" class="hero-title font-serif text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-6">Making safe drinking water more accessible to local families.</h1>
+            <!-- [CONFIRMED] from PDF "What is Water Europa?" --><p data-status="confirmed" class="hero-body text-base sm:text-lg text-white/90 mb-8 leading-relaxed font-light">Water Europa is a community water initiative based in Kashmore, Sindh, Pakistan. The project provides affordable, purified drinking water for as low as $0.07/gallon to communities affected by severe groundwater salinity and chemical dumping.</p>
+            <div class="hero-cta flex flex-wrap items-center gap-4 mb-8">
+              <!-- [CONFIRMED] brief: "support us" button --><a data-status="confirmed" href="#donate" class="bg-secondary hover:bg-secondary/90 text-white px-7 py-3.5 rounded-full font-semibold text-sm flex items-center gap-2 shadow-lg transition-all hover:-translate-y-0.5">
+                <span>Support us</span><span class="material-symbols-outlined text-base">arrow_forward</span>
+              </a>
+              <a href="#kashmore" data-status="confirmed" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-6 py-3.5 rounded-full font-semibold text-sm transition-all"><span>Learn about our work</span></a>
+            </div>
+            <div class="hero-meta flex flex-wrap items-center gap-6 pt-6 border-t border-white/20 text-xs text-white/80">
+              <!-- [CONFIRMED] running since July 2024 --><div data-status="confirmed" class="flex items-center gap-2"><span class="material-symbols-outlined text-secondary-container text-lg">check_circle</span><span>Active Since July 2024</span></div>
+              
+            </div>
+          </div>
+
+          <div class="hero-carousel lg:col-span-6 relative">
+            <div class="glass-panel rounded-3xl p-3 shadow-2xl overflow-hidden text-on-surface">
+              <div class="carousel-container">
+                <!-- [CONFIRMED] real client photo - community/village scene --><div data-status="confirmed" class="carousel-slide active">
+                  <img src="./with people.jpeg" alt="Families in the Kashmore community" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                    <span class="text-xs uppercase font-bold text-secondary-container tracking-wider">Slide 01 • Community Access</span>
+                    <p class="font-serif text-lg font-medium">Families in Kashmore collect purified drinking water from the facility.</p>
+                  </div>
+                </div>
+                <!-- [CONFIRMED] real client photo - RO machinery --><div data-status="confirmed" class="carousel-slide">
+                  <img src="./machinery.jpeg" alt="The RO plant machinery inside the Kashmore facility" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                    <span class="text-xs uppercase font-bold text-secondary-container tracking-wider">Slide 02 • Kashmore Facility</span>
+                    <p class="font-serif text-lg font-medium">A community-level reverse osmosis (RO) water facility in Kashmore.</p>
+                  </div>
+                </div>
+                <!-- [CONFIRMED] real client photo - Kashmore streets --><div data-status="confirmed" class="carousel-slide">
+                  <img src="./Street.jpeg" alt="The streets of Kashmore, a community in need of clean water" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                    <span class="text-xs uppercase font-bold text-secondary-container tracking-wider">Slide 03 • The Area</span>
+                    <p class="font-serif text-lg font-medium">The streets of Kashmore, a community in need of clean, accessible water.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between px-3 pt-3">
+                <div class="flex items-center gap-2">
+                  <button type="button" aria-label="Slide 1" class="carousel-bar" onclick="goToSlide(0)"></button>
+                  <button type="button" aria-label="Slide 2" class="carousel-bar" onclick="goToSlide(1)"></button>
+                  <button type="button" aria-label="Slide 3" class="carousel-bar" onclick="goToSlide(2)"></button>
+                  <span id="slide-counter" class="text-xs font-mono text-outline ml-2">01 / 03</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <button type="button" aria-label="Previous Slide" class="w-8 h-8 rounded-full bg-mist hover:bg-secondary/20 flex items-center justify-center transition-colors" onclick="prevSlide()"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+                  <button type="button" aria-label="Next Slide" class="w-8 h-8 rounded-full bg-mist hover:bg-secondary/20 flex items-center justify-center transition-colors" onclick="nextSlide()"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wave Transition (Moved outside main grid to fix overlap) -->
+      <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none" style="z-index: 1;">
+        <svg class="block w-full h-16 md:h-24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 100" preserveAspectRatio="none">
+          <path fill="white" d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,40 1440,40 L1440,100 L0,100 Z"></path>
+        </svg>
+      </div>
+
+      <a href="#mission" class="scroll-cue" aria-label="Scroll down" style="bottom: 5rem;">
+        <span class="material-symbols-outlined">expand_more</span>
+      </a>
+    </section>
+
+    <!-- 2. IMPACT BAND -->
+    <section class="py-16 bg-white relative z-20" id="mission">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <!-- (Content unchanged, omitted for brevity but is exactly the same as previous working version) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- [CONFIRMED] 250+ people served daily (updated PDF) --><div data-status="confirmed" class="reveal-left glass-subtle p-8 rounded-3xl border border-secondary/15 hover:shadow-lg transition-all duration-300"><div class="flex items-center justify-between mb-4"><span class="text-xs font-bold uppercase tracking-wider text-secondary">Daily Impact</span><span class="w-10 h-10 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center"><span class="material-symbols-outlined">group</span></span></div><div class="font-serif text-4xl md:text-5xl font-bold text-primary mb-2">250+</div><p class="font-serif text-base text-primary mb-1">People served every day</p><!-- [CONFIRMED] price from PDF --><p data-status="confirmed" class="text-xs text-on-surface-variant leading-relaxed"><!-- [OLD FABRICATED TEXT, replaced from updated PDF]: Dependable safe drinking water delivered daily to adjoining rural families. -->Families collect purified drinking water from the Kashmore facility.</p></div>
+          <!-- [CONFIRMED] $10k+ raised --><div data-status="confirmed" class="reveal-bottom glass-subtle p-8 rounded-3xl border border-secondary/15 hover:shadow-lg transition-all duration-300"><div class="flex items-center justify-between mb-4"><span class="text-xs font-bold uppercase tracking-wider text-secondary">Funds Mobilized</span><span class="w-10 h-10 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center"><span class="material-symbols-outlined">volunteer_activism</span></span></div><div class="font-serif text-4xl md:text-5xl font-bold text-primary mb-2"><!-- [REPLACED FABRICATED TEXT, now per brief]: Rs. 2.8M+ -->$10,000+</div><p class="font-serif text-base text-primary mb-1"><!-- [REPLACED FABRICATED TEXT, now per brief]: Over Rs. 2.8 million raised -->Raised to support the project</p><!-- [CONFIRMED] use of funds from PDF --><p data-status="confirmed" class="text-xs text-on-surface-variant leading-relaxed"><!-- [OLD FABRICATED TEXT, replaced from updated PDF]: Direct community & donor backing deployed into plant construction & upkeep. -->Raised to establish and run the Kashmore facility.</p></div>
+          <!-- [CONFIRMED] operating since July 2024 --><div data-status="confirmed" class="reveal-right glass-subtle p-8 rounded-3xl border border-secondary/15 hover:shadow-lg transition-all duration-300"><div class="flex items-center justify-between mb-4"><span class="text-xs font-bold uppercase tracking-wider text-secondary">Active Facility</span><span class="w-10 h-10 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center"><span class="material-symbols-outlined">water_drop</span></span></div><div class="font-serif text-4xl md:text-5xl font-bold text-primary mb-2">July 2024</div><p class="font-serif text-base text-primary mb-1">Kashmore RO Plant operational</p><!-- [CONFIRMED] from PDF --><p data-status="confirmed" class="text-xs text-on-surface-variant leading-relaxed"><!-- [OLD FABRICATED TEXT, replaced from updated PDF]: Continuous production providing certified clean drinking water with local staff. -->Treating local groundwater with reverse osmosis and filtration.</p></div>
+        </div>
+        <div class="mt-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="reveal-left lg:col-span-6 space-y-6"><div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sand text-secondary border border-outline-variant"><span class="material-symbols-outlined text-sm">warning</span><span>Groundwater Quality Challenge</span></div><!-- [CONFIRMED] from PDF "What problem..." --><h2 data-status="confirmed" class="font-serif text-2xl sm:text-3xl md:text-4xl text-primary font-normal leading-snug"><!-- [OLD FABRICATED TEXT, replaced from updated PDF]: Why Hand Pumps Aren't Enough in Rural Sindh -->What problem is Water Europa trying to solve?</h2><!-- [CONFIRMED] from PDF: salinity + chemical dumping --><p data-status="confirmed" class="text-on-surface-variant text-base leading-relaxed"><!-- [OLD FABRICATED TEXT, replaced from updated PDF]: In Kashmore and surrounding districts, shallow groundwater is naturally saline and heavily mineralized. Unfiltered well water frequently tests at 1,800 to 2,500+ ppm in Total Dissolved Solids (TDS)—far beyond healthy potable guidelines. -->Kashmore faces serious challenges with access to safe drinking water. Groundwater in the area is <strong>highly saline</strong>, while <strong>chemical dumping</strong> has also contributed to concerns about local water quality.</p><!-- [CONFIRMED] from PDF: 20km travel / expensive branded water --><p data-status="confirmed" class="text-on-surface-variant text-base leading-relaxed"><!-- [OLD FABRICATED TEXT, replaced from updated PDF]: Standard boiling or mesh filtering cannot remove dissolved salts or chemical runoff. Reverse osmosis membrane filtration is the only reliable way to reduce TDS and make water safe for drinking. -->For many families, accessing usable drinking water can require traveling <strong>20km</strong> to the nearest water source and transporting water back home or purchasing <strong>expensive branded water</strong>. This makes access difficult, especially for rural communities with limited infrastructure and affordability.</p><!-- [CONFIRMED] boxes now use real figures (20km, $0.07/gallon). OLD fabricated boxes were: 2,200+ ppm raw water, under 140 ppm with a WHO-certified claim --><div data-status="confirmed" class="grid grid-cols-2 gap-4 pt-2"><div class="p-4 rounded-2xl border border-red-200 bg-red-50/50"><span class="text-xs font-mono uppercase text-red-700 block mb-1">Travel for many families</span><span class="font-serif text-2xl font-bold text-red-600">20km</span><p class="text-xs text-red-700 mt-1">To the nearest water source</p></div><div class="p-4 rounded-2xl border border-secondary/30 bg-secondary/5"><span class="text-xs font-mono uppercase text-secondary block mb-1">Water Europa, as low as</span><span class="font-serif text-2xl font-bold text-secondary">$0.07/gallon</span><p class="text-xs text-secondary mt-1">Affordable, purified drinking water</p></div></div></div>
+          <div class="reveal-right lg:col-span-6"><!-- [CONFIRMED] real client photo - dry arid Kashmore landscape --><div data-status="confirmed" class="relative bg-mist rounded-3xl p-3 border border-outline-variant shadow-md overflow-hidden"><img src="./drybuildings.jpeg" id="crisis-image" alt="The arid landscape of Kashmore — a region where accessing safe water is a daily struggle" class="w-full h-80 object-cover rounded-2xl" /><div class="p-4 flex items-center justify-between text-xs text-on-surface-variant"><span>The arid landscape of Kashmore, Sindh</span><span class="px-2.5 py-0.5 rounded-full bg-secondary/10 text-secondary font-semibold">Kashmore, Sindh</span></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PARALLAX SECTION -->
+    <!-- [CONFIRMED] quote approved by Somil (client). Attribution changed to "Water Europa" --><section data-status="confirmed" data-parallax-bg="storyBridgeBg" class="parallax-section py-28 md:py-36 relative overflow-hidden" id="story-bridge" style="background-image:url('./Tents.jpeg')"><div class="parallax-overlay"></div><div class="max-w-4xl mx-auto px-6 md:px-12 relative z-10 text-center text-white"><p class="reveal-bottom font-serif text-2xl sm:text-3xl md:text-5xl font-light leading-snug">"Every glass of clean water we deliver<br/><em class="font-bold not-italic text-secondary-container">is a child who doesn't miss school</em><br/>because they're sick."</p><div class="reveal-bottom mt-8 text-sm text-white/70 font-sans"><!-- [OLD FABRICATED TEXT, replaced from updated PDF]: — Water Europa Field Team, Kashmore 2024 -->— Water Europa</div></div></section>
+
+    <!-- 4. ORIGIN STORY -->
+    <section class="py-20 bg-sand/50" id="story"><div class="max-w-7xl mx-auto px-6 md:px-12"><!-- [CONFIRMED] "Why Water Europa started" built ONLY from Somil's PDF paragraphs, kept verbatim. The PDF gives no personal origin/motive, so none is invented. "my uncle" is in Somil's voice, hence the attribution -->
+      <div data-status="confirmed" class="reveal-bottom mb-16">
+        <div class="max-w-3xl mb-10">
+          <span class="text-xs font-bold uppercase tracking-widest text-secondary block mb-3">OUR BEGINNINGS</span>
+          <h2 class="font-serif text-2xl sm:text-3xl md:text-4xl text-primary font-normal mb-4">Why Water Europa Started</h2>
+          <p class="text-on-surface-variant text-base md:text-lg leading-relaxed">The project operates a community-level reverse osmosis (RO) water facility in Kashmore and focuses on making safe drinking water more accessible to local families.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <article class="glass-panel rounded-3xl p-8 border border-outline-variant/60">
+            <h3 class="font-serif text-lg md:text-xl text-primary font-bold mb-4">How did the facility come together?</h3>
+            <p class="text-on-surface-variant text-base leading-relaxed mb-3">The facility operates from a space provided by <strong>my uncle</strong> in Kashmore, which allowed us to establish the project without having to take on a separate rental cost for the location.</p>
+            <p class="text-on-surface-variant text-base leading-relaxed">The RO machinery was arranged and transported from <strong>Karachi</strong>.</p>
+            <p class="mt-5 text-xs font-semibold text-secondary">Somil Keswani, Co-Founder &amp; Project Lead</p>
+          </article>
+          <article class="glass-panel rounded-3xl p-8 border border-outline-variant/60">
+            <h3 class="font-serif text-lg md:text-xl text-primary font-bold mb-4">How is the project funded?</h3>
+            <p class="text-on-surface-variant text-base leading-relaxed mb-3">Water Europa has raised <strong>$10,000+</strong> to support the project.</p>
+            <p class="text-on-surface-variant text-base leading-relaxed">Funds have been used toward establishing and operating the facility, including equipment, maintenance, transportation, repairs, and other project expenses.</p>
+          </article>
+        </div>
+      </div>
+      <!-- Founders grid — real photos -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        <div class="reveal-left glass-panel rounded-3xl p-6 border border-outline-variant/60 shadow-xs hover:shadow-md transition-all">
+          <div class="aspect-[4/5] max-w-sm mx-auto md:max-w-none w-full rounded-2xl overflow-hidden mb-4 bg-mist">
+            <img src="./Dewan.jpeg" alt="Dewan Keswani" class="w-full h-full object-cover" style="object-position: center 20%;" />
+          </div>
+          <h3 class="font-serif text-lg text-primary font-bold mb-1">Dewan Keswani</h3>
+          <p class="text-xs text-secondary font-semibold">Founder</p>
+          <p class="founder-bio text-sm text-on-surface-variant leading-relaxed mt-3">Founder of Water Europa, the community water initiative based in Kashmore, Sindh.</p>
+        </div>
+        <div class="reveal-bottom glass-panel rounded-3xl p-6 border border-outline-variant/60 shadow-xs hover:shadow-md transition-all md:translate-y-6">
+          <div class="aspect-[4/5] max-w-sm mx-auto md:max-w-none w-full rounded-2xl overflow-hidden mb-4 bg-mist">
+            <img src="./Aman.jpeg" alt="Aman Kumar" class="w-full h-full object-cover" style="object-position: center 65%;" />
+          </div>
+          <h3 class="font-serif text-lg text-primary font-bold mb-1">Aman Kumar</h3>
+          <p class="text-xs text-secondary font-semibold">Founder</p>
+          <p class="founder-bio text-sm text-on-surface-variant leading-relaxed mt-3">Founder of Water Europa, a project focused on making safe drinking water more accessible to local families.</p>
+        </div>
+        <div class="reveal-right glass-panel rounded-3xl p-6 border border-outline-variant/60 shadow-xs hover:shadow-md transition-all sm:col-span-2 md:col-span-1">
+          <div class="aspect-[4/5] max-w-sm mx-auto md:max-w-none w-full rounded-2xl overflow-hidden mb-4 bg-mist">
+            <img src="./Somil.jpeg" alt="Somil Keswani" class="w-full h-full object-cover" style="object-position: center 30%;" />
+          </div>
+          <h3 class="font-serif text-lg text-primary font-bold mb-1">Somil Keswani</h3>
+          <p class="text-xs text-secondary font-semibold">Co-Founder &amp; Project Lead</p>
+          <p class="founder-bio text-sm text-on-surface-variant leading-relaxed mt-3">Project lead who arranged the Kashmore facility.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- 5. KASHMORE CASE STUDY -->
+    <section data-parallax-bg="kashmoreBg" class="parallax-section py-28 md:py-36 relative overflow-hidden" id="kashmore" style="background-image:url('./Street2.jpeg')"><div class="parallax-overlay parallax-overlay-2"></div><div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10"><div class="reveal-bottom max-w-4xl mx-auto glass-panel text-on-surface rounded-3xl p-8 md:p-12 shadow-2xl"><!-- [CONFIRMED] running since July 2024 --><div data-status="confirmed" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary/10 text-secondary text-xs font-bold mb-6"><span class="material-symbols-outlined text-sm">verified</span><span>Kashmore RO Facility</span></div><!-- [CONFIRMED] heading is Somil's own question from the PDF --><h2 data-status="confirmed" class="font-serif text-2xl sm:text-3xl md:text-4xl text-primary font-normal mb-4">What does the Water Europa facility do?</h2><!-- [CONFIRMED] from PDF. Water capacity / machinery names intentionally omitted until client provides them --><p data-status="confirmed" class="text-on-surface-variant text-base leading-relaxed mb-4">The facility uses <strong>reverse osmosis and filtration</strong> to treat local groundwater and produce purified drinking water.</p><p data-status="confirmed" class="text-on-surface-variant text-base leading-relaxed mb-8">From groundwater to drinking water: here is how the plant treats it, step by step, and what the results look like.</p><!-- [CONFIRMED] Treatment process: Somil's own paragraph (client message, Oct 2026), sentences kept as written and split into steps. Order kept as he wrote it. Toray = membrane manufacturer; membranes imported from USA (Somil, 10 Oct). -->
+<div data-status="confirmed" id="treatment-process" class="mb-10 pt-8 border-t border-outline-variant">
+  <span class="text-xs font-bold uppercase tracking-widest text-secondary block mb-2">TREATMENT PROCESS</span>
+  <h3 class="font-serif text-xl md:text-2xl text-primary font-normal mb-3">How the water is treated</h3>
+  <p class="text-on-surface-variant text-base leading-relaxed mb-6">At Water Europa, our water treatment process begins by <strong>collecting groundwater in a storage tank</strong>.</p>
+  <ol class="space-y-5 mb-8">
+    <li class="flex gap-4"><span class="shrink-0 w-9 h-9 rounded-full bg-secondary text-white text-sm font-bold flex items-center justify-center">1</span><div><h4 class="font-serif text-base font-bold text-primary mb-1">Carbon filtration</h4><p class="text-sm text-on-surface-variant leading-relaxed">The water then passes through <strong>carbon-filtering vessels</strong>, which help remove impurities.</p></div></li>
+    <li class="flex gap-4"><span class="shrink-0 w-9 h-9 rounded-full bg-secondary text-white text-sm font-bold flex items-center justify-center">2</span><div><h4 class="font-serif text-base font-bold text-primary mb-1">Sediment filtration</h4><p class="text-sm text-on-surface-variant leading-relaxed">A series of pipes carry it through <strong>sediment filtration</strong> to remove accumulated dirt and suspended particles.</p></div></li>
+    <li class="flex gap-4"><span class="shrink-0 w-9 h-9 rounded-full bg-secondary text-white text-sm font-bold flex items-center justify-center">3</span><div><h4 class="font-serif text-base font-bold text-primary mb-1">Reverse Osmosis (RO)</h4><p class="text-sm text-on-surface-variant leading-relaxed">Next, water pumps send the filtered water into the <strong>Reverse Osmosis (RO) system</strong>, which uses specialised membranes, <strong>imported from the USA</strong> and supplied by <strong>Toray Membrane USA, Inc.</strong>, to remove dissolved salts and other impurities.</p></div></li>
+  </ol>
+  <div class="rounded-2xl bg-secondary/5 border border-secondary/20 p-5 mb-6 flex gap-4">
+    <span class="material-symbols-outlined text-secondary">shield</span>
+    <p class="text-sm text-on-surface-variant leading-relaxed">An <strong>automatic dosing pump injects antiscalant</strong> into the system to prevent mineral deposits from accumulating on the RO membranes, helping maintain filtration efficiency.</p>
+  </div>
+  <ol class="space-y-5 mb-8" start="4">
+    <li class="flex gap-4"><span class="shrink-0 w-9 h-9 rounded-full bg-secondary text-white text-sm font-bold flex items-center justify-center">4</span><div><h4 class="font-serif text-base font-bold text-primary mb-1">Storage &amp; antibacterial filter</h4><p class="text-sm text-on-surface-variant leading-relaxed">Finally, the treated water is stored and passed through an <strong>additional antibacterial rod filter</strong> before distribution to the local community.</p></div></li>
+  </ol>
+  <h4 class="font-serif text-base font-bold text-primary mb-3">Water quality (TDS)</h4>
+  <p class="text-sm text-on-surface-variant leading-relaxed mb-4">Our plant uses groundwater with an initial Total Dissolved Solids (TDS) level of approximately <strong>2200 ppm</strong>. The RO membrane rejects approximately <strong>95 to 97%</strong> of the dissolved salts, lowering the TDS level to around <strong>120 to 130 ppm</strong>, depending on the season. During June and July, the treated water&rsquo;s TDS level can fall to approximately <strong>60 to 70 ppm</strong>.</p>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+    <div class="p-4 rounded-2xl border border-red-200 bg-red-50/50 text-center"><span class="text-[10px] font-mono uppercase text-red-700 block mb-1">Groundwater TDS</span><span class="font-serif text-xl font-bold text-red-600">~2200 ppm</span></div>
+    <div class="p-4 rounded-2xl border border-outline-variant bg-white text-center"><span class="text-[10px] font-mono uppercase text-outline block mb-1">Salts rejected</span><span class="font-serif text-xl font-bold text-primary">95 to 97%</span></div>
+    <div class="p-4 rounded-2xl border border-secondary/30 bg-secondary/5 text-center"><span class="text-[10px] font-mono uppercase text-secondary block mb-1">Treated TDS</span><span class="font-serif text-xl font-bold text-secondary">120 to 130 ppm</span></div>
+    <div class="p-4 rounded-2xl border border-secondary/30 bg-secondary/5 text-center"><span class="text-[10px] font-mono uppercase text-secondary block mb-1">June &amp; July</span><span class="font-serif text-xl font-bold text-secondary">60 to 70 ppm</span></div>
+  </div>
+</div>
+<!-- [CONFIRMED] real client photos. JS will hydrate from db.json gallery array --><div id="kashmore-gallery" data-status="confirmed" class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-outline-variant"><div class="rounded-2xl overflow-hidden border border-outline-variant bg-white"><img src="./machinery.jpeg" alt="Inside the Kashmore RO facility" class="w-full h-36 object-cover" /><div class="p-3 text-xs"><span class="font-bold text-primary block">The RO Plant</span><span class="text-outline text-[11px]">Inside the Kashmore RO facility — the machinery that makes clean water possible</span></div></div><div class="rounded-2xl overflow-hidden border border-outline-variant bg-white"><img src="./with people.jpeg" alt="Families in Kashmore who depend on clean water" class="w-full h-36 object-cover" /><div class="p-3 text-xs"><span class="font-bold text-primary block">The Community</span><span class="text-outline text-[11px]">Families in Kashmore who depend on clean water every day</span></div></div><div class="rounded-2xl overflow-hidden border border-outline-variant bg-white"><img src="./Street2.jpeg" alt="The streets of Kashmore" class="w-full h-36 object-cover" /><div class="p-3 text-xs"><span class="font-bold text-primary block">Kashmore Area</span><span class="text-outline text-[11px]">The streets of Kashmore — the community Water Europa serves</span></div></div></div></div></div></section>
+
+    <!-- 6. FUTURE ROADMAP — progressive-reveal vertical timeline -->
+    <section class="py-20 md:py-24 bg-white" id="roadmap">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="reveal-bottom max-w-3xl mb-16">
+          <span class="text-xs font-bold uppercase tracking-widest text-secondary block mb-3">WHERE WE ARE HEADED</span>
+          <h2 class="font-serif text-2xl sm:text-3xl md:text-4xl text-primary font-normal mb-4">Future Plans</h2>
+          <p class="text-on-surface-variant text-base leading-relaxed">The longer term goal is to expand beyond a single village. Scroll the journey, each milestone lights up as we pass it.</p>
+        </div>
+
+        <div class="we-timeline" id="we-timeline">
+          <!-- Vertical rail + animated fill -->
+          <div class="we-timeline-rail" aria-hidden="true">
+            <div class="we-timeline-rail-fill" id="we-timeline-rail-fill"></div>
+          </div>
+
+          <!-- Phase 1 — 2024, DONE -->
+          <article class="we-timeline-item odd done" data-status="done">
+            <div class="we-timeline-node" aria-hidden="true">
+              <span class="we-timeline-node-icon material-symbols-outlined">check</span>
+            </div>
+            <div class="we-timeline-card">
+              <div class="we-timeline-year">2024</div>
+              <div class="we-timeline-status">✓ Operating</div>
+              <h3 class="font-serif text-xl font-bold text-primary mt-4 mb-3">Kashmore Water Plant</h3>
+              <p class="text-sm text-on-surface-variant leading-relaxed">Our first plant, built to prove that community-run RO can work reliably in high-salinity Sindh.</p>
+            </div>
+          </article>
+
+          <!-- Phase 2 — 2027, IN PROGRESS -->
+          <article class="we-timeline-item even upcoming" data-status="upcoming">
+            <div class="we-timeline-node" aria-hidden="true">
+              <span class="we-timeline-node-icon material-symbols-outlined">trending_up</span>
+            </div>
+            <div class="we-timeline-card">
+              <div class="we-timeline-year">2027</div>
+              <div class="we-timeline-status">In Progress: Early 2027</div>
+              <h3 class="font-serif text-xl font-bold text-primary mt-4 mb-3">Kandhkot Water Plant</h3>
+              <p class="text-sm text-on-surface-variant leading-relaxed">An adjacent village, Kandhkot provided us with the ideal setting needed to set up a RO Plant. With sufficient funds collected and field work such as location analysis carried out, the process has started yet again. Eagerly awaiting the arrival of the machinery, we hope to recreate the exhilarating moments while setting up the RO plant in Kandhkot in early 2027.</p>
+              <p class="mt-4 text-xs text-secondary font-semibold">Funds collected &amp; location analysis done. Awaiting machinery.</p>
+            </div>
+          </article>
+
+          <!-- Phase 3 — 2027+, FUTURE -->
+          <article class="we-timeline-item odd future" data-status="future">
+            <div class="we-timeline-node" aria-hidden="true">
+              <span class="we-timeline-node-icon material-symbols-outlined">flag</span>
+            </div>
+            <div class="we-timeline-card">
+              <div class="we-timeline-year">2027+</div>
+              <div class="we-timeline-status">Planned: Late 2027</div>
+              <h3 class="font-serif text-xl font-bold text-primary mt-4 mb-3">Shikarpur &amp; Ghotki</h3>
+              <p class="text-sm text-on-surface-variant leading-relaxed">After Kandhkot, we plan to expand to Shikarpur and Ghotki in late 2027.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. MAP -->
+    <section class="py-20 bg-sand/40" id="where-we-are">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="reveal-bottom max-w-3xl mb-10">
+          <span id="plants-section-badge" class="text-xs font-bold uppercase tracking-widest text-secondary block mb-3">WHERE WE OPERATE</span>
+          <h2 id="plants-section-title" class="font-serif text-2xl sm:text-3xl md:text-4xl text-primary font-normal mb-3">Kashmore, Sindh Our First Plant</h2>
+          <!-- [CONFIRMED] from PDF -->
+          <p id="plants-section-subtitle" data-status="confirmed" class="text-on-surface-variant text-base leading-relaxed">A community-level RO facility in a space provided by a family member, with machinery brought in from Karachi.</p>
+        </div>
+
+        <!-- Location Tabs (dynamically populated if multiple plants) -->
+        <div id="plant-tabs" class="flex flex-wrap gap-2 mb-6"></div>
+
+        <div class="reveal-bottom grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          <div class="lg:col-span-2 flex flex-col gap-3">
+            <div data-status="fabricated" class="rounded-3xl overflow-hidden border border-outline-variant shadow-md flex-1" style="min-height:360px; position:relative;">
+              <iframe data-admin="map-embed" id="location-map" title="Kashmore, Sindh Water Europa plant location" src="https://www.openstreetmap.org/export/embed.html?bbox=69.4800%2C28.3800%2C69.6200%2C28.4700&layer=mapnik&marker=28.4200%2C69.5600" width="100%" height="100%" style="border:0; min-height:360px; display:block;" loading="lazy" allowfullscreen></iframe>
+            </div>
+            <button id="snap-to-plant" type="button" onclick="snapToPlant()" class="self-start flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border-2 border-secondary/30 hover:border-secondary text-secondary text-xs font-bold shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
+              <span class="material-symbols-outlined text-base">my_location</span>
+              <span>Snap back to plant location</span>
+            </button>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <div class="glass-subtle rounded-3xl p-6 border border-outline-variant flex-1">
+              <div class="flex items-center gap-3 mb-4">
+                <span class="w-10 h-10 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center">
+                  <span class="material-symbols-outlined">location_on</span>
+                </span>
+                <div>
+                  <p class="text-xs font-bold uppercase tracking-wider text-secondary">Plant Location</p>
+                  <p id="plant-name-display" class="font-serif text-base font-bold text-primary">Kashmore, Sindh</p>
+                </div>
+              </div>
+              <ul class="space-y-2 text-xs text-on-surface-variant">
+                <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-sm mt-0.5">water_drop</span><span id="plant-status-display">Operational</span></li>
+                <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-sm mt-0.5">group</span><span id="plant-people-display">Community-run, serving local families daily</span></li>
+                <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-sm mt-0.5">filter_alt</span><span id="plant-process-display">Reverse osmosis and filtration</span></li>
+                <li class="flex items-start gap-2"><span class="material-symbols-outlined text-secondary text-sm mt-0.5">payments</span><span id="plant-pricing-display">Affordable purified drinking water</span></li>
+              </ul>
+            </div>
+            <a id="google-maps-link" href="https://www.google.com/maps/search/Kashmore+Sindh+Pakistan" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-primary hover:bg-secondary text-white text-xs font-bold transition-all shadow-sm hover:-translate-y-0.5">
+              <span class="material-symbols-outlined text-base">open_in_new</span>
+              <span>Open in Google Maps</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8a. UN QUOTE — parallax background -->
+    <section data-parallax-bg="rightToWaterBg" class="parallax-section py-28 md:py-36 relative overflow-hidden" id="right-to-water" style="background-image:url('./drybuildings.jpeg')">
+      <div class="parallax-overlay" style="background:linear-gradient(135deg,rgba(8,22,32,0.88) 0%,rgba(0,80,90,0.72) 100%);"></div>
+      <div class="max-w-3xl mx-auto px-6 md:px-12 relative z-10 text-center text-white">
+        <figure class="reveal-bottom">
+          <blockquote class="font-serif text-2xl sm:text-3xl md:text-5xl font-light leading-snug">
+            &ldquo;The human right to water is indispensable for leading a life in human dignity.
+            <em class="font-bold not-italic text-secondary-container">It is a prerequisite for the realization of other human rights.</em>&rdquo;
+          </blockquote>
+          <figcaption class="mt-8 text-sm text-white/70 font-sans not-italic">
+            &mdash; Article I.1, U.N. Committee on Economic, Social and Cultural Rights, November 2002
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 8b. PLAIN WHITE BREATHER — stat pull -->
+    <section class="py-16 bg-white">
+      <div class="max-w-4xl mx-auto px-6 md:px-12 text-center">
+        <div class="reveal-bottom flex flex-col items-center gap-4">
+          <span class="font-serif text-5xl md:text-7xl font-bold text-secondary">250+</span>
+          <p class="text-base md:text-lg text-on-surface-variant max-w-xl mx-auto">people in Kashmore now have access to affordable, purified drinking water, every single day.</p>
+          <a href="#donate" class="mt-2 inline-flex items-center gap-2 bg-secondary hover:bg-primary text-white px-7 py-3 rounded-full font-semibold text-sm shadow transition-all hover:-translate-y-0.5">
+            <span>Be part of this</span>
+            <span class="material-symbols-outlined text-base">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8c. DONATE BRIDGE — second parallax -->
+    <section data-parallax-bg="donateBg" class="parallax-section-2 py-28 relative overflow-hidden" style="background-image:url('./with people.jpeg')"><div class="parallax-overlay parallax-overlay-3"></div><div class="max-w-4xl mx-auto px-6 md:px-12 relative z-10 text-center text-white"><div class="reveal-bottom"><h2 class="font-serif text-2xl sm:text-3xl md:text-4xl font-light leading-snug mb-4">Funds have gone toward equipment,<br/>maintenance, transport &amp; repairs.</h2><p class="text-white/80 text-base md:text-lg max-w-2xl mx-auto">Every contribution helps a family in Kashmore get safe drinking water.</p><a href="#donate" class="inline-flex items-center gap-2 mt-8 bg-secondary hover:bg-secondary/80 text-white px-8 py-4 rounded-full font-semibold text-sm shadow-lg transition-all hover:-translate-y-0.5"><span>Support the Initiative</span><span class="material-symbols-outlined text-base">arrow_forward</span></a></div></div></section>
+
+    <!-- 9. SUPPORT & DONATE -->
+    <section class="py-20 bg-mist-soft" id="donate"><div class="max-w-7xl mx-auto px-6 md:px-12"><div class="reveal-bottom max-w-4xl mx-auto glass-panel rounded-3xl p-8 md:p-12 border border-outline-variant shadow-lg"><div class="text-center max-w-2xl mx-auto mb-10"><span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-eco-sage-light text-eco-sage text-xs font-bold mb-3"><span class="material-symbols-outlined text-sm">favorite</span><span>Join the Cause</span></span><h2 class="font-serif text-2xl sm:text-3xl md:text-4xl text-primary font-normal mb-3" id="donate-title">Help Keep the Clean Water Flowing</h2><!-- [CONFIRMED] use of funds from PDF --><p id="donate-text" data-status="confirmed" class="text-sm md:text-base text-on-surface-variant leading-relaxed">Your support helps keep the Kashmore plant running and brings the next plant in Kandhkot closer. Choose a preset amount to connect with us on WhatsApp, or send a direct message below.</p></div><div class="mb-10"><label id="donate-tiers-label" class="text-xs font-mono uppercase tracking-wider text-outline block mb-3 text-center">SELECT PLEDGE AMOUNT (USD) & MESSAGE ON WHATSAPP</label><!-- [UNVERIFIED / FABRICATED] tier AMOUNTS ($10/$20/$50/$100) are invented. Brief gives no amounts. Invented labels removed --><div data-status="fabricated" class="grid grid-cols-2 sm:grid-cols-4 gap-3.5" id="pledge-tiers"><button type="button" class="tier-chip" onclick="selectTier(event, '$10', '')"><span class="font-serif text-lg font-bold text-primary block">$10</span></button><button type="button" class="tier-chip active" onclick="selectTier(event, '$20', '')"><span class="font-serif text-lg font-bold text-secondary block">$20</span></button><button type="button" class="tier-chip" onclick="selectTier(event, '$50', '')"><span class="font-serif text-lg font-bold text-primary block">$50</span></button><button type="button" class="tier-chip" onclick="selectTier(event, '$100', '')"><span class="font-serif text-lg font-bold text-primary block">$100</span></button></div><div id="pledge-custom" class="hidden mt-4 max-w-xs mx-auto"><input id="pledge-custom-input" type="text" inputmode="decimal" autocomplete="off" placeholder="Or enter your own amount" class="w-full px-4 py-2.5 rounded-xl border border-outline-variant bg-white text-sm text-center focus:outline-none focus:border-secondary" /></div><!-- [CONFIRMED] payment info via WhatsApp request, per client --><div data-status="confirmed" class="mt-6 p-6 rounded-2xl bg-secondary/5 border border-secondary/20 flex flex-col sm:flex-row items-center justify-between gap-4"><div class="text-left"><span id="selected-tier-label" class="text-xs font-mono text-secondary font-bold block">Selected: $20</span><p id="donate-helper" class="text-xs text-on-surface-variant mt-0.5">Click below to open a pre-filled WhatsApp message directly with our team.</p></div><a id="whatsapp-pledge-btn" data-admin="whatsapp" href="https://wa.me/920000000000?text=Hello%20Water%20Europa%20team!%20I%20would%20like%20to%20donate%20%2420.%20Please%20share%20your%20payment%20details." target="_blank" rel="noopener noreferrer" class="whitespace-nowrap px-6 py-3 rounded-full bg-secondary hover:bg-primary text-white text-xs font-bold flex items-center gap-2 shadow-xs transition-colors"><span class="material-symbols-outlined text-base">chat</span><span id="donate-btn-label">Request payment details on WhatsApp</span></a></div></div><div class="pt-8 border-t border-outline-variant"><h3 class="font-serif text-lg text-primary text-center mb-6">Or Send Us a Direct Message</h3><!-- [PLACEHOLDER] Formspree ID is "placeholder". Set real endpoint in admin --><form data-status="placeholder" id="inquiry-form" action="https://formspree.io/f/placeholder" data-admin="formspree-endpoint" method="POST" class="space-y-4 max-w-2xl mx-auto"><div class="grid grid-cols-1 sm:grid-cols-2 gap-4"><div class="floating-wrapper"><input type="text" id="name" name="name" class="floating-input" placeholder=" " required /><label for="name" class="floating-label">Your Name</label></div><div class="floating-wrapper"><input type="email" id="email" name="email" class="floating-input" placeholder=" " required /><label for="email" class="floating-label">Email Address</label></div></div><div class="floating-wrapper"><input type="text" id="subject" name="subject" class="floating-input" placeholder=" " /><label for="subject" class="floating-label">Subject / Purpose (Donation, University, Partnership)</label></div><div class="floating-wrapper"><textarea id="message" name="message" rows="4" class="floating-input resize-none" placeholder=" " required></textarea><label for="message" class="floating-label">Your Message...</label></div><div class="text-center pt-2"><button type="submit" class="px-8 py-3.5 bg-primary hover:bg-secondary text-white rounded-full font-semibold text-sm transition-all shadow-sm">Send Message</button></div></form><div class="text-center mt-6 text-xs text-on-surface-variant"><span>Direct inquiries: </span><a href="mailto:example@gmail.com" data-admin="contact-email" data-status="placeholder" class="font-mono text-secondary underline">example@gmail.com</a></div></div></div></div></section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-primary text-white py-12 border-t border-primary-dark relative z-10">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <div class="md:col-span-5 space-y-3">
+          <div class="flex items-center gap-3">
+            <img src="./Logo.png" alt="Water Europa Logo" class="w-10 h-10 object-contain rounded-xl drop-shadow-sm" />
+            <div class="flex flex-col">
+              <span class="font-serif text-lg font-bold tracking-tight text-white">WATER EUROPA</span>
+              <!-- [CONFIRMED] descriptor from PDF. Tagline itself still not provided -->
+              <span data-status="confirmed" class="text-[10px] uppercase font-semibold text-secondary-container tracking-widest">Community Water Initiative</span>
+            </div>
+          </div>
+          <!-- [CONFIRMED] from PDF -->
+          <p data-status="confirmed" class="text-white/70 text-sm max-w-sm leading-relaxed">Water Europa is a community water initiative based in Kashmore, Sindh, Pakistan. The project focuses on making safe drinking water more accessible to local families.</p>
+        </div>
+        <div class="md:col-span-3 md:col-start-7 space-y-4">
+          <h4 class="text-sm font-bold uppercase tracking-wider text-secondary-container">Quick Links</h4>
+          <nav class="flex flex-col gap-2 text-sm text-white/80">
+            <a href="#mission" class="hover:text-white transition-colors">The Crisis</a>
+            <a href="#story" class="hover:text-white transition-colors">Our Story</a>
+            <a href="#kashmore" class="hover:text-white transition-colors">Kashmore Plant</a>
+            <a href="#roadmap" class="hover:text-white transition-colors">Future Plans</a>
+            <a href="#donate" class="hover:text-white transition-colors">Support Us</a>
+          </nav>
+        </div>
+        <div class="md:col-span-3 space-y-4">
+          <h4 class="text-sm font-bold uppercase tracking-wider text-secondary-container">Contact & Location</h4>
+          <div class="flex flex-col gap-2 text-sm text-white/80">
+            <span class="flex items-start gap-2"><span class="material-symbols-outlined text-base mt-0.5">location_on</span>Kashmore, Sindh, Pakistan</span>
+            <a href="mailto:example@gmail.com" data-admin="contact-email" data-status="placeholder" class="flex items-start gap-2 hover:text-white transition-colors">
+              <span class="material-symbols-outlined text-base mt-0.5">email</span>example@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Replaced footer copyright with Designed by Codem (no 'All rights reserved') -->
+      <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/60">
+        <span id="footer-credit">Designed by <a id="footer-credit-link" href="https://portfolio-future-nine.vercel.app" target="_blank" rel="noopener noreferrer" class="text-secondary-container hover:underline font-medium">Codem</a></span>
+        <span id="footer-tagline">Designed with 💧 for a better tomorrow</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING CONTACT WIDGET (Interchangeable: WhatsApp, Messenger, Instagram) -->
+  <a id="floating-contact-btn" data-admin="floating-btn"
+     href="https://wa.me/920000000000?text=Hello%20Water%20Europa%20team!"
+     target="_blank" rel="noopener noreferrer"
+     class="floating-wa-btn platform-whatsapp" aria-label="Contact us">
+    <span class="floating-wa-icon">
+      <!-- Official WhatsApp SVG brand mark -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="26" height="26">
+        <path fill="#fff" d="M4.868 43.303 7.36 34.03A19.4 19.4 0 0 1 4.5 24C4.5 13.23 13.23 4.5 24 4.5S43.5 13.23 43.5 24 34.77 43.5 24 43.5a19.4 19.4 0 0 1-9.614-2.545z"/>
+        <path fill="#25d366" d="M24 7.5C14.887 7.5 7.5 14.887 7.5 24c0 3.175.87 6.15 2.382 8.7l.452.73-1.913 6.99 7.19-1.887.703.418A16.44 16.44 0 0 0 24 40.5c9.113 0 16.5-7.387 16.5-16.5S33.113 7.5 24 7.5"/>
+        <path fill="#fff" fill-rule="evenodd" d="M19.05 14.914c-.39-.878-.8-.896-1.17-.912-.303-.013-.65-.012-.996-.012-.347 0-.91.13-1.388.65-.477.52-1.822 1.78-1.822 4.34s1.866 5.033 2.127 5.38c.26.347 3.639 5.785 8.94 7.878 4.42 1.743 5.32 1.397 6.28 1.309.96-.087 3.097-1.267 3.533-2.49.435-1.222.435-2.27.304-2.49-.13-.217-.477-.347-.996-.607s-3.097-1.527-3.576-1.701-.828-.26-1.177.26-1.35 1.7-1.655 2.05-.61.39-1.13.13c-.52-.261-2.194-.809-4.18-2.58-1.545-1.378-2.587-3.08-2.892-3.6-.305-.52-.032-.8.228-1.06.234-.232.52-.606.78-.91.26-.303.347-.52.52-.867.174-.347.087-.65-.043-.91-.13-.26-1.134-2.834-1.587-3.858z" clip-rule="evenodd"/>
+      </svg>
+    </span>
+    <span class="floating-wa-label">Chat with us</span>
+  </a>
+
+  <!-- Core interactivity & CMS hydration -->
+  <script src="./script.js"></script>
+</body>
+</html>

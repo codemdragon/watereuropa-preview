@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>CMS Admin Panel • Water Europa</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#0f2937",
+            "primary-dark": "#071922",
+            "secondary": "#006874",
+            "secondary-container": "#94edfd",
+            "mist": "#f0f7fa",
+            "mist-soft": "#f6fafc",
+            "sand": "#f9f8f5",
+            "eco-sage": "#2e7d5a",
+            "on-surface": "#0f2937",
+            "on-surface-variant": "#475569",
+            "outline-variant": "#dbe4ea"
+          },
+          fontFamily: {
+            "sans": ["Plus Jakarta Sans", "sans-serif"],
+            "serif": ["Merriweather", "serif"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f6fafc; color: #0f2937; overflow-x: hidden; }
+    .admin-input {
+      background: #ffffff;
+      border: 1.5px solid #dbe4ea;
+      padding: 0.6rem 0.85rem;
+      border-radius: 0.75rem;
+      color: #0f2937;
+      font-size: 0.875rem;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+    .admin-input:focus {
+      outline: none;
+      border-color: #006874;
+      box-shadow: 0 0 0 3px rgba(0, 104, 116, 0.12);
+    }
+    textarea.admin-input { min-height: 75px; resize: vertical; }
+    .admin-card {
+      background: #ffffff;
+      border: 1px solid #dbe4ea;
+      border-radius: 1rem;
+      padding: 1.15rem;
+      box-shadow: 0 2px 8px rgba(15, 41, 55, 0.04);
+    }
+    @media (min-width: 640px) {
+      .admin-card { padding: 1.5rem; }
+    }
+    .admin-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #475569;
+      margin-bottom: 0.35rem;
+    }
+    .badge-hint {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      background: #f0f7fa;
+      color: #006874;
+      font-weight: 600;
+    }
+    .verify-chip {
+      display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+      margin: 0.25rem 0 0.5rem; padding: 0.4rem 0.65rem; border-radius: 0.6rem;
+      background: #fffbeb; border: 1px solid #fcd34d; color: #92400e;
+      font-size: 11px; font-weight: 600;
+    }
+    .verify-chip button {
+      margin-left: auto; padding: 0.2rem 0.6rem; border-radius: 9999px;
+      background: #92400e; color: #fff; font-size: 11px; font-weight: 700;
+    }
+    .verify-chip button:hover { background: #78350f; }
+    .tab-btn.active, .mobile-chip.active {
+      background-color: #006874 !important;
+      color: #ffffff !important;
+      box-shadow: 0 4px 12px rgba(0, 104, 116, 0.25);
+    }
+    .mobile-chip {
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    /* Smooth touch scrolling with hidden scrollbar */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* Toast container */
+    #toast-container {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      right: 1rem;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+    #toast-container > * { pointer-events: auto; }
+    @media (min-width: 640px) {
+      #toast-container {
+        left: auto;
+        right: 1.5rem;
+        bottom: 1.5rem;
+        max-width: 400px;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- ================= AUTH SCREEN ================= -->
+  <div id="screen-auth" class="min-h-screen flex items-center justify-center p-3 sm:p-6 bg-gradient-to-br from-primary via-primary-dark to-[#041219]">
+    <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 md:p-10 max-w-md w-full shadow-2xl border border-white/20">
+      <div class="flex items-center gap-3 mb-6">
+        <img src="./Logo.png" alt="Logo" class="w-12 h-12 object-contain rounded-2xl bg-mist p-1 shadow-xs" onerror="this.src='https://placehold.co/48x48?text=WE'" />
+        <div>
+          <h1 class="font-serif text-xl font-bold text-primary">Water Europa</h1>
+          <p class="text-xs uppercase tracking-wider font-semibold text-secondary">CMS Admin Panel</p>
+        </div>
+      </div>
+      <p class="text-sm text-on-surface-variant mb-6 leading-relaxed">
+        Connect your GitHub repository to manage content, photos, text, and settings directly via GitHub API.
+      </p>
+
+      <div class="space-y-4">
+        <div>
+          <label class="admin-label">GitHub Token (Fine-Grained or Classic)</label>
+          <input type="password" id="auth-token" class="admin-input" placeholder="github_pat_... or ghp_..." />
+          <p class="text-[11px] text-on-surface-variant mt-1.5 leading-relaxed">
+            Needs <strong>Contents: Read & Write</strong> access to the repository.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 pt-1">
+          <div>
+            <label class="admin-label">Repo Owner</label>
+            <input type="text" id="auth-owner" class="admin-input" value="codemdragon" placeholder="codemdragon" />
+          </div>
+          <div>
+            <label class="admin-label">Repository</label>
+            <input type="text" id="auth-repo" class="admin-input" value="watereuropa" placeholder="watereuropa" />
+          </div>
+        </div>
+
+        <div>
+          <label class="admin-label">Branch</label>
+          <input type="text" id="auth-branch" class="admin-input" value="main" placeholder="main" />
+        </div>
+
+        <button type="button" onclick="loginWithGitHub()" id="btn-connect" class="w-full mt-2 py-3.5 px-6 rounded-xl bg-secondary hover:bg-primary text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-base">lock_open</span>
+          <span>Connect & Load CMS</span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= DASHBOARD SCREEN ================= -->
+  <div id="screen-dashboard" class="hidden flex-1 flex flex-col min-h-screen">
+
+    <!-- TOP HEADER -->
+    <header class="bg-primary text-white sticky top-0 z-40 shadow-md">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex flex-wrap items-center justify-between gap-2 sm:gap-4">
+        <!-- Logo & Title -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <img src="./Logo.png" alt="Logo" class="w-7 h-7 sm:w-8 sm:h-8 object-contain rounded-lg bg-white/10 p-0.5" />
+          <div class="flex flex-col">
+            <span class="font-serif text-sm sm:text-base font-bold tracking-tight">Water Europa</span>
+            <span class="text-[9px] sm:text-[10px] uppercase font-bold text-secondary-container tracking-wider">CMS Manager</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-1.5 sm:gap-2 order-2 sm:order-3">
+          <a href="./index.html" target="_blank" title="Preview Site" class="p-2 sm:px-3 sm:py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center gap-1.5 transition-all">
+            <span class="material-symbols-outlined text-sm">visibility</span>
+            <span class="hidden sm:inline">Preview</span>
+          </a>
+          <button type="button" onclick="pushChangesToGitHub()" id="btn-push-changes" class="px-3 sm:px-4 py-1.5 rounded-lg bg-secondary-container hover:bg-white text-primary text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all">
+            <span class="material-symbols-outlined text-sm">cloud_upload</span>
+            <span>Push <span class="hidden sm:inline">to GitHub</span></span>
+          </button>
+          <button type="button" onclick="logout()" title="Logout" class="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors">
+            <span class="material-symbols-outlined text-base">logout</span>
+          </button>
+        </div>
+
+        <!-- Global Search Input -->
+        <div class="w-full sm:w-auto sm:flex-1 sm:max-w-md sm:mx-2 order-3 sm:order-2 mt-1 sm:mt-0">
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-2 text-gray-400 text-sm">search</span>
+            <input type="text" id="global-search" oninput="filterFields(this.value)" placeholder="Search any text, stat, title, image, or setting..." class="w-full bg-white/10 focus:bg-white text-white focus:text-primary placeholder-white/60 focus:placeholder-gray-400 text-xs rounded-full pl-9 pr-4 py-1.5 sm:py-2 border border-white/20 focus:border-secondary transition-all outline-none" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ALERTS BAR -->
+      <div id="alerts-bar" class="bg-primary-dark/95 border-t border-white/10 px-3 sm:px-6 py-1.5 text-xs">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-2">
+          <div id="alerts-content" class="flex items-center gap-2 sm:gap-4 text-white/90 text-[11px] sm:text-xs truncate">
+            <span class="flex items-center gap-1.5 text-emerald-300">
+              <span class="material-symbols-outlined text-sm">check_circle</span>
+              <span class="truncate">All changes synced with GitHub.</span>
+            </span>
+          </div>
+          <div class="shrink-0 flex items-center gap-2 text-[10px] sm:text-[11px] text-white/60">
+            <span id="repo-badge" class="truncate max-w-[130px] sm:max-w-none">codemdragon/watereuropa</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOBILE HORIZONTAL SCROLLING CHIPS -->
+      <div class="md:hidden bg-primary/95 border-t border-white/10 px-3 py-2 overflow-x-auto no-scrollbar flex items-center gap-2">
+        <button type="button" onclick="switchTab('review')" data-mobile-chip="review" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">fact_check</span>
+          <span>Review</span>
+          <span id="mobile-review-badge" class="hidden px-1.5 py-0.2 rounded-full bg-amber-500 text-white text-[9px]"></span>
+        </button>
+        <button type="button" onclick="switchTab('branding')" data-mobile-chip="branding" class="mobile-chip active px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">palette</span>
+          <span>Branding</span>
+        </button>
+        <button type="button" onclick="switchTab('floating')" data-mobile-chip="floating" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">chat</span>
+          <span>Widget</span>
+        </button>
+        <button type="button" onclick="switchTab('contact')" data-mobile-chip="contact" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">mail</span>
+          <span>Contact</span>
+        </button>
+        <button type="button" onclick="switchTab('donations')" data-mobile-chip="donations" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">volunteer_activism</span>
+          <span>Donations</span>
+        </button>
+        <button type="button" onclick="switchTab('hero')" data-mobile-chip="hero" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">view_carousel</span>
+          <span>Hero</span>
+        </button>
+        <button type="button" onclick="switchTab('crisis')" data-mobile-chip="crisis" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">warning</span>
+          <span>Crisis</span>
+        </button>
+        <button type="button" onclick="switchTab('story')" data-mobile-chip="story" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">group</span>
+          <span>Founders</span>
+        </button>
+        <button type="button" onclick="switchTab('kashmore')" data-mobile-chip="kashmore" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">water_drop</span>
+          <span>Plant</span>
+        </button>
+        <button type="button" onclick="switchTab('roadmap')" data-mobile-chip="roadmap" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">timeline</span>
+          <span>Roadmap</span>
+        </button>
+        <button type="button" onclick="switchTab('plants')" data-mobile-chip="plants" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">map</span>
+          <span>Map</span>
+        </button>
+        <button type="button" onclick="switchTab('quotes')" data-mobile-chip="quotes" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">format_quote</span>
+          <span>Quotes</span>
+        </button>
+        <button type="button" onclick="switchTab('settings')" data-mobile-chip="settings" class="mobile-chip px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 bg-white/10 text-white hover:bg-white/20">
+          <span class="material-symbols-outlined text-sm">settings</span>
+          <span>Settings</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CMS LAYOUT (Sidebar Tabs + Content Area) -->
+    <div class="flex-1 flex max-w-7xl mx-auto w-full px-3 sm:px-6 py-3.5 sm:py-6 gap-4 sm:gap-6">
+
+      <!-- Sidebar Navigation -->
+      <aside class="w-60 shrink-0 hidden md:flex flex-col gap-1.5">
+        <span class="text-[11px] font-bold uppercase tracking-widest text-on-surface-variant px-3 py-1">CMS Sections</span>
+        <button type="button" onclick="switchTab('review')" data-tab="review" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">fact_check</span>
+          <span>Review &amp; Verify</span>
+          <span id="review-badge" class="ml-auto hidden px-1.5 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold"></span>
+        </button>
+        <button type="button" onclick="switchTab('branding')" data-tab="branding" class="tab-btn active text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">palette</span>
+          <span>General & Branding</span>
+        </button>
+        <button type="button" onclick="switchTab('floating')" data-tab="floating" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">chat</span>
+          <span>Floating Widget</span>
+        </button>
+        <button type="button" onclick="switchTab('contact')" data-tab="contact" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">mail</span>
+          <span>Contact & Support</span>
+        </button>
+        <button type="button" onclick="switchTab('donations')" data-tab="donations" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">volunteer_activism</span>
+          <span>Donations</span>
+        </button>
+        <button type="button" onclick="switchTab('hero')" data-tab="hero" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">view_carousel</span>
+          <span>Hero & Carousel</span>
+        </button>
+        <button type="button" onclick="switchTab('crisis')" data-tab="crisis" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">warning</span>
+          <span>The Crisis Section</span>
+        </button>
+        <button type="button" onclick="switchTab('story')" data-tab="story" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">group</span>
+          <span>Origin & Founders</span>
+        </button>
+        <button type="button" onclick="switchTab('kashmore')" data-tab="kashmore" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">water_drop</span>
+          <span>Treatment & Plant</span>
+        </button>
+        <button type="button" onclick="switchTab('roadmap')" data-tab="roadmap" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">timeline</span>
+          <span>Future Roadmap</span>
+        </button>
+        <button type="button" onclick="switchTab('plants')" data-tab="plants" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">map</span>
+          <span>Locations & Maps</span>
+        </button>
+        <button type="button" onclick="switchTab('quotes')" data-tab="quotes" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">format_quote</span>
+          <span>Quotes & Parallax</span>
+        </button>
+        <button type="button" onclick="switchTab('settings')" data-tab="settings" class="tab-btn text-left px-3.5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2.5 text-on-surface hover:bg-mist transition-all">
+          <span class="material-symbols-outlined text-base">settings</span>
+          <span>Repo & Developer</span>
+        </button>
+      </aside>
+
+      <!-- Content Area -->
+      <main class="flex-1 min-w-0 space-y-4 sm:space-y-6">
+        <select id="mobile-tab-select" onchange="switchTab(this.value)" class="hidden">
+          <option value="review">Review &amp; Verify</option>
+          <option value="branding">General &amp; Branding</option>
+          <option value="floating">Floating Widget</option>
+          <option value="contact">Contact &amp; Support</option>
+          <option value="donations">Donations</option>
+          <option value="hero">Hero &amp; Carousel</option>
+          <option value="crisis">The Crisis</option>
+          <option value="story">Story &amp; Founders</option>
+          <option value="kashmore">Kashmore Plant</option>
+          <option value="roadmap">Future Plans</option>
+          <option value="plants">Plants &amp; Map</option>
+          <option value="quotes">Quotes</option>
+          <option value="settings">Settings</option>
+        </select>
+
+        <!-- TAB: REVIEW & VERIFY -->
+        <div id="tab-review" class="tab-panel hidden space-y-6">
+          <div class="border-b border-outline-variant pb-3">
+            <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Review &amp; Verify</h2>
+            <p class="text-xs text-on-surface-variant">Everything below is placeholder or unconfirmed content. For each item, either <strong>replace it</strong> with the real thing (it clears automatically once saved) or click <strong>Mark as verified</strong> if it is already correct. Then press <strong>Push to GitHub</strong>.</p>
+          </div>
+          <div id="review-container" class="space-y-5"></div>
+        </div>
+
+        <!-- TAB: DONATIONS -->
+        <div id="tab-donations" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Donations</h2>
+              <p class="text-xs text-on-surface-variant">Control the pledge amounts, wording and the WhatsApp message donors send.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-sky-50 border border-sky-200 text-xs text-sky-900 leading-relaxed">
+            <strong>No bank details are stored on this site.</strong> Donors tap the button, send a WhatsApp message, and the team replies privately with their chosen payment details.
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Section Text</h3>
+            <div>
+              <label class="admin-label">Heading</label>
+              <input type="text" id="donation-title" class="admin-input" oninput="updateDonationPreview()" />
+            </div>
+            <div>
+              <label class="admin-label">Paragraph</label>
+              <textarea id="donation-text" class="admin-input" rows="3"></textarea>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="admin-label">Amount Picker Label</label>
+                <input type="text" id="donation-tiersLabel" class="admin-input" />
+              </div>
+              <div>
+                <label class="admin-label">"Selected" Prefix</label>
+                <input type="text" id="donation-selectedPrefix" class="admin-input" />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="admin-label">Helper Text (above button)</label>
+                <input type="text" id="donation-helperText" class="admin-input" />
+              </div>
+              <div>
+                <label class="admin-label">Button Label</label>
+                <input type="text" id="donation-buttonLabel" class="admin-input" />
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="font-bold text-sm text-primary">Pledge Amounts</h3>
+                <p class="text-xs text-on-surface-variant">Type amounts exactly as donors should see them (e.g. <code>$25</code>, <code>PKR 2,000</code>). Add, remove, reorder, hide, or pick the pre-selected one.</p>
+              </div>
+              <label class="flex items-center gap-2 text-xs font-bold text-primary cursor-pointer">
+                <input type="checkbox" id="donation-showTiers" onchange="updateDonationPreview()" /> Show amount picker
+              </label>
+            </div>
+            <div id="tiers-editor" class="space-y-2"></div>
+            <div class="flex flex-wrap items-center gap-4">
+              <button type="button" onclick="addPledgeTier()" class="px-3 py-1.5 bg-white border border-outline-variant hover:bg-mist text-primary text-xs font-bold rounded-lg flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">add</span><span>Add amount</span>
+              </button>
+              <label class="flex items-center gap-2 text-xs font-bold text-primary cursor-pointer">
+                <input type="checkbox" id="donation-allowCustom" /> Let donors type their own amount
+              </label>
+            </div>
+            <div>
+              <label class="admin-label">Custom Amount Placeholder</label>
+              <input type="text" id="donation-customPlaceholder" class="admin-input" />
+            </div>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">WhatsApp Message</h3>
+            <div>
+              <label class="admin-label">Message with amount</label>
+              <textarea id="donation-messageTemplate" class="admin-input" rows="2" oninput="updateDonationPreview()"></textarea>
+              <p class="text-[11px] text-on-surface-variant mt-1">Use <code>{amount}</code> where the chosen amount should appear.</p>
+            </div>
+            <div>
+              <label class="admin-label">Message without amount (picker hidden)</label>
+              <textarea id="donation-genericMessage" class="admin-input" rows="2"></textarea>
+            </div>
+            <div class="p-3 rounded-xl bg-mist border border-outline-variant">
+              <span class="admin-label">Preview (default amount)</span>
+              <p id="donation-preview" class="text-xs text-on-surface"></p>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- TAB: BRANDING -->
+        <div id="tab-branding" class="tab-panel space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">General & Branding</h2>
+              <p class="text-xs text-on-surface-variant">Manage logo, page metadata, brand titles, and footer credits.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <!-- Logo Uploader -->
+          <div class="admin-card searchable-card">
+            <h3 class="font-bold text-sm text-primary mb-3 flex items-center justify-between">
+              <span>Website Logo</span>
+              <span class="badge-hint">Recommended: 256x256 Transparent PNG</span>
+            </h3>
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+              <div class="w-24 h-24 rounded-2xl border-2 border-dashed border-outline-variant bg-mist flex items-center justify-center overflow-hidden shrink-0">
+                <img id="preview-logo" src="./Logo.png" alt="Logo Preview" class="w-full h-full object-contain p-2" />
+              </div>
+              <div class="flex-1 w-full space-y-3">
+                <div>
+                  <label class="admin-label">Logo Image URL</label>
+                  <input type="text" id="branding-logoUrl" class="admin-input" oninput="updateImagePreview('preview-logo', this.value)" />
+                </div>
+                <div class="flex items-center gap-3">
+                  <label class="px-4 py-2 bg-mist hover:bg-outline-variant text-primary text-xs font-bold rounded-xl cursor-pointer border border-outline-variant flex items-center gap-1.5 transition-all">
+                    <span class="material-symbols-outlined text-sm">cloud_upload</span>
+                    <span>Upload New Logo</span>
+                    <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'branding-logoUrl', 'preview-logo')" />
+                  </label>
+                  <span class="text-[11px] text-on-surface-variant">Uploads straight to GitHub repository</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Meta & Header -->
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Titles & Descriptions</h3>
+            <div>
+              <label class="admin-label">Browser Title (Tag)</label>
+              <input type="text" id="branding-siteTitle" class="admin-input" />
+            </div>
+            <div>
+              <label class="admin-label">Meta Description (SEO)</label>
+              <textarea id="branding-metaDescription" class="admin-input" rows="2"></textarea>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="admin-label">Brand Name</label>
+                <input type="text" id="branding-brandName" class="admin-input" />
+              </div>
+              <div>
+                <label class="admin-label">Brand Subtitle / Descriptor</label>
+                <input type="text" id="branding-brandSubtitle" class="admin-input" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Credit & Developer Protection -->
+          <div class="admin-card searchable-card space-y-4 border-2 border-secondary/20 bg-mist/30">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="font-bold text-sm text-primary">Developer Credit & Portfolio Link</h3>
+                <p class="text-xs text-on-surface-variant">Configures "Designed by Codem" in the website footer.</p>
+              </div>
+              <span class="badge-hint bg-amber-50 text-amber-700 border border-amber-200">Password Protected</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="admin-label">Credit Prefix Text</label>
+                <input type="text" id="branding-footerCreditText" class="admin-input" value="Designed by" />
+              </div>
+              <div>
+                <label class="admin-label">Author Name</label>
+                <input type="text" id="branding-footerCreditAuthor" class="admin-input" value="Codem" />
+              </div>
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label class="admin-label mb-0">Portfolio URL (Codem Link)</label>
+                <button type="button" onclick="unlockDeveloperCredit()" id="btn-unlock-credit" class="text-xs text-secondary hover:underline font-bold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-xs">lock</span>
+                  <span>Unlock to edit URL</span>
+                </button>
+              </div>
+              <input type="text" id="branding-footerCreditUrl" class="admin-input bg-gray-100 text-gray-500 cursor-not-allowed" value="https://portfolio-future-nine.vercel.app" readonly />
+              <p class="text-[11px] text-on-surface-variant mt-1">Requires your custom developer password to modify this link.</p>
+            </div>
+
+            <div>
+              <label class="admin-label">Footer Tagline</label>
+              <input type="text" id="branding-footerTagline" class="admin-input" value="Designed with 💧 for a better tomorrow" />
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: FLOATING WIDGET -->
+        <div id="tab-floating" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Floating Contact Widget</h2>
+              <p class="text-xs text-on-surface-variant">Switch platforms between WhatsApp, Facebook Messenger, and Instagram direct chat.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <div class="admin-card searchable-card space-y-6">
+            <div>
+              <label class="admin-label">Select Platform</label>
+              <div class="grid grid-cols-3 gap-2 sm:gap-3">
+                <label class="flex flex-col items-center justify-center p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 cursor-pointer transition-all border-outline-variant hover:border-secondary" id="platform-card-whatsapp">
+                  <input type="radio" name="widget-platform" value="whatsapp" class="hidden" onchange="onPlatformChange('whatsapp')" />
+                  <span class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#25d366] text-white flex items-center justify-center mb-1.5 sm:mb-2 shadow-sm font-bold text-xs sm:text-sm">WA</span>
+                  <span class="text-[11px] sm:text-xs font-bold text-primary">WhatsApp</span>
+                </label>
+                <label class="flex flex-col items-center justify-center p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 cursor-pointer transition-all border-outline-variant hover:border-secondary" id="platform-card-facebook">
+                  <input type="radio" name="widget-platform" value="facebook" class="hidden" onchange="onPlatformChange('facebook')" />
+                  <span class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#0084FF] text-white flex items-center justify-center mb-1.5 sm:mb-2 shadow-sm font-bold text-xs sm:text-sm">FB</span>
+                  <span class="text-[11px] sm:text-xs font-bold text-primary">Messenger</span>
+                </label>
+                <label class="flex flex-col items-center justify-center p-2.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 cursor-pointer transition-all border-outline-variant hover:border-secondary" id="platform-card-instagram">
+                  <input type="radio" name="widget-platform" value="instagram" class="hidden" onchange="onPlatformChange('instagram')" />
+                  <span class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white flex items-center justify-center mb-1.5 sm:mb-2 shadow-sm font-bold text-xs sm:text-sm">IG</span>
+                  <span class="text-[11px] sm:text-xs font-bold text-primary">Instagram</span>
+                </label>
+              </div>
+            </div>
+
+            <div id="widget-handle-group">
+              <label class="admin-label" id="widget-handle-label">Phone Number (with Country Code)</label>
+              <input type="text" id="floating-handle" class="admin-input" placeholder="e.g. 923001234567" />
+              <p class="text-[11px] text-on-surface-variant mt-1" id="widget-handle-helper">
+                Digits only with country code (e.g. 923001234567 for Pakistan).
+              </p>
+            </div>
+
+            <div>
+              <label class="admin-label">Pre-filled Chat Message (WhatsApp)</label>
+              <input type="text" id="floating-message" class="admin-input" placeholder="Hello Water Europa team!" />
+            </div>
+
+            <div>
+              <label class="admin-label">Tooltip Label (on Hover)</label>
+              <input type="text" id="floating-label" class="admin-input" placeholder="Chat with us" />
+            </div>
+
+            <div class="flex items-center gap-2 pt-2">
+              <input type="checkbox" id="floating-enabled" class="rounded text-secondary focus:ring-secondary w-4 h-4" />
+              <label for="floating-enabled" class="text-xs font-bold text-primary cursor-pointer">Enable Floating Button on Website</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: CONTACT -->
+        <div id="tab-contact" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Contact & Support Details</h2>
+              <p class="text-xs text-on-surface-variant">Update email, phone, and the Formspree submission endpoint. Donation wording and amounts live in the Donations tab.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Direct Contact</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="admin-label">Contact Email</label>
+                <input type="email" id="contact-email" class="admin-input" placeholder="example@gmail.com" />
+              </div>
+              <div>
+                <label class="admin-label">Phone Number</label>
+                <input type="text" id="contact-phone" class="admin-input" placeholder="+92 300 0000000" />
+              </div>
+            </div>
+            <div>
+              <label class="admin-label">Headquarters / Location Text</label>
+              <input type="text" id="contact-locationText" class="admin-input" placeholder="Kashmore, Sindh, Pakistan" />
+            </div>
+            <div>
+              <label class="admin-label">Formspree Endpoint URL</label>
+              <input type="url" id="contact-formspreeUrl" class="admin-input" placeholder="https://formspree.io/f/your_form_id" />
+              <p class="text-[11px] text-on-surface-variant mt-1">Submissions from the Direct Message form will send to this Formspree URL.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: HERO & CAROUSEL -->
+        <div id="tab-hero" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Hero & Carousel</h2>
+              <p class="text-xs text-on-surface-variant">Update the landing title, intro paragraph, metric stats, and slider photos.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Hero Text</h3>
+            <div>
+              <label class="admin-label">Hero Badge</label>
+              <input type="text" id="hero-badge" class="admin-input" />
+            </div>
+            <div>
+              <label class="admin-label">Hero Title</label>
+              <input type="text" id="hero-title" class="admin-input" />
+            </div>
+            <div>
+              <label class="admin-label">Hero Description</label>
+              <textarea id="hero-description" class="admin-input" rows="2"></textarea>
+            </div>
+          </div>
+
+          <div class="admin-card searchable-card">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-bold text-sm text-primary">Carousel Slides</h3>
+                <p class="text-xs text-on-surface-variant">Recommended photo sizing: <strong>1200 x 800 px (3:2 ratio)</strong>.</p>
+              </div>
+            </div>
+            <div id="carousel-slides-container" class="space-y-4">
+              <!-- Rendered by admin.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: THE CRISIS -->
+        <div id="tab-crisis" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">The Crisis Section</h2>
+              <p class="text-xs text-on-surface-variant">Explain the salinity challenges, travel distance, and clean water pricing.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <div>
+              <label class="admin-label">Section Badge</label>
+              <input type="text" id="crisis-badge" class="admin-input" />
+            </div>
+            <div>
+              <label class="admin-label">Section Title</label>
+              <input type="text" id="crisis-title" class="admin-input" />
+            </div>
+            <div>
+              <label class="admin-label">Paragraph 1 (Salinity & Chemical dumping)</label>
+              <textarea id="crisis-p1" class="admin-input" rows="3"></textarea>
+            </div>
+            <div>
+              <label class="admin-label">Paragraph 2 (20km Travel & Branded Water)</label>
+              <textarea id="crisis-p2" class="admin-input" rows="3"></textarea>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="p-3 bg-red-50/50 rounded-xl border border-red-200">
+                <label class="admin-label text-red-700">Stat 1 Value</label>
+                <input type="text" id="crisis-stat1-value" class="admin-input mb-2" />
+                <label class="admin-label text-red-700">Stat 1 Label</label>
+                <input type="text" id="crisis-stat1-label" class="admin-input mb-2" />
+                <label class="admin-label text-red-700">Stat 1 Subtitle</label>
+                <input type="text" id="crisis-stat1-sub" class="admin-input" />
+              </div>
+              <div class="p-3 bg-secondary/5 rounded-xl border border-secondary/20">
+                <label class="admin-label text-secondary">Stat 2 Value</label>
+                <input type="text" id="crisis-stat2-value" class="admin-input mb-2" />
+                <label class="admin-label text-secondary">Stat 2 Label</label>
+                <input type="text" id="crisis-stat2-label" class="admin-input mb-2" />
+                <label class="admin-label text-secondary">Stat 2 Subtitle</label>
+                <input type="text" id="crisis-stat2-sub" class="admin-input" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Crisis Image -->
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary flex items-center justify-between">
+              <span>Section Image & Caption</span>
+              <span class="badge-hint">Recommended: 1000 x 800 px</span>
+            </h3>
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+              <div class="w-32 h-24 rounded-xl overflow-hidden bg-mist shrink-0 border border-outline-variant">
+                <img id="preview-crisis-img" src="" alt="Crisis Preview" class="w-full h-full object-cover" />
+              </div>
+              <div class="flex-1 w-full space-y-2">
+                <div>
+                  <label class="admin-label">Image URL</label>
+                  <input type="text" id="crisis-imageUrl" class="admin-input" oninput="updateImagePreview('preview-crisis-img', this.value)" />
+                </div>
+                <div class="flex items-center gap-3">
+                  <label class="px-3 py-1.5 bg-mist hover:bg-outline-variant text-primary text-xs font-bold rounded-xl cursor-pointer border border-outline-variant flex items-center gap-1.5 transition-all">
+                    <span class="material-symbols-outlined text-sm">cloud_upload</span>
+                    <span>Upload Image</span>
+                    <input type="file" accept="image/*" class="hidden" onchange="handleFileUpload(this, 'crisis-imageUrl', 'preview-crisis-img')" />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="admin-label">Image Caption</label>
+                <input type="text" id="crisis-imageCaption" class="admin-input" />
+              </div>
+              <div>
+                <label class="admin-label">Location Tag</label>
+                <input type="text" id="crisis-imageTag" class="admin-input" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: STORY & FOUNDERS -->
+        <div id="tab-story" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Origin & Founders</h2>
+              <p class="text-xs text-on-surface-variant">Update the founder photos, roles, and portrait framing alignments.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Origin Story Texts</h3>
+            <div>
+              <label class="admin-label">Story Badge</label>
+              <input type="text" id="story-badge" class="admin-input" />
+            </div>
+            <div>
+              <label class="admin-label">Story Title</label>
+              <input type="text" id="story-title" class="admin-input" />
+            </div>
+            <div class="p-4 bg-mist/50 rounded-2xl border border-outline-variant space-y-3">
+              <label class="admin-label text-secondary font-bold">Facility Space Story (Uncle's space in Kashmore)</label>
+              <input type="text" id="story-q1Title" class="admin-input" />
+              <textarea id="story-q1Text1" class="admin-input" rows="2"></textarea>
+              <textarea id="story-q1Text2" class="admin-input" rows="2"></textarea>
+              <input type="text" id="story-q1Attribution" class="admin-input text-xs" />
+            </div>
+            <div class="p-4 bg-mist/50 rounded-2xl border border-outline-variant space-y-3">
+              <label class="admin-label text-secondary font-bold">Project Funding Story ($10k+ raised)</label>
+              <input type="text" id="story-q2Title" class="admin-input" />
+              <textarea id="story-q2Text1" class="admin-input" rows="2"></textarea>
+              <textarea id="story-q2Text2" class="admin-input" rows="2"></textarea>
+            </div>
+          </div>
+
+          <!-- Founders Cards -->
+          <div class="admin-card searchable-card space-y-6">
+            <h3 class="font-bold text-sm text-primary flex items-center justify-between">
+              <span>Founders Team Cards</span>
+              <span class="badge-hint">Recommended: 800 x 1000 px (4:5 portrait)</span>
+            </h3>
+            <div id="founders-cards-container" class="space-y-6">
+              <!-- Rendered by admin.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: KASHMORE PLANT & TREATMENT -->
+        <div id="tab-kashmore" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Kashmore Plant & Treatment Process</h2>
+              <p class="text-xs text-on-surface-variant">Update filtration steps, Toray membranes, TDS quality measurements, and plant photos.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Plant Facility Headline & Capacity</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="admin-label">Facility Badge</label>
+                <input type="text" id="kashmore-badge" class="admin-input" />
+              </div>
+              <div>
+                <label class="admin-label">Section Heading</label>
+                <input type="text" id="kashmore-title" class="admin-input" />
+              </div>
+            </div>
+            <div>
+              <label class="admin-label">Process Summary</label>
+              <input type="text" id="kashmore-p1" class="admin-input" />
+            </div>
+            <div>
+              <label class="admin-label">Daily Capacity Stat</label>
+              <input type="text" id="kashmore-p2" class="admin-input" />
+            </div>
+          </div>
+
+          <!-- Treatment Steps -->
+          <div class="admin-card searchable-card space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold text-sm text-primary">Treatment Process Steps</h3>
+              <button type="button" onclick="addTreatmentStep()" class="text-xs font-bold text-secondary hover:underline flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">add_circle</span>
+                <span>Add Step</span>
+              </button>
+            </div>
+            <div id="treatment-steps-container" class="space-y-3">
+              <!-- Rendered by admin.js -->
+            </div>
+            <div>
+              <label class="admin-label">Antiscalant Dosing Note</label>
+              <textarea id="treatment-antiscalant" class="admin-input" rows="2"></textarea>
+            </div>
+          </div>
+
+          <!-- Water Quality TDS -->
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Water Quality TDS Statistics</h3>
+            <div>
+              <label class="admin-label">Description Paragraph</label>
+              <textarea id="tds-desc" class="admin-input" rows="3"></textarea>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="p-3 bg-red-50/50 rounded-xl border border-red-200">
+                <label class="admin-label text-red-700">Raw Groundwater</label>
+                <input type="text" id="tds-stat-0" class="admin-input font-bold" />
+              </div>
+              <div class="p-3 bg-white rounded-xl border border-outline-variant">
+                <label class="admin-label">Salts Rejected</label>
+                <input type="text" id="tds-stat-1" class="admin-input font-bold" />
+              </div>
+              <div class="p-3 bg-secondary/5 rounded-xl border border-secondary/20">
+                <label class="admin-label text-secondary">Treated TDS</label>
+                <input type="text" id="tds-stat-2" class="admin-input font-bold" />
+              </div>
+              <div class="p-3 bg-secondary/5 rounded-xl border border-secondary/20">
+                <label class="admin-label text-secondary">June & July</label>
+                <input type="text" id="tds-stat-3" class="admin-input font-bold" />
+              </div>
+            </div>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="font-bold text-sm text-primary">Photo Gallery</h3>
+                <p class="text-xs text-on-surface-variant">Photos shown under the Kashmore section. Recommended: <strong>600 x 400 px (3:2)</strong>.</p>
+              </div>
+              <button type="button" onclick="addGalleryItem()" class="px-3 py-1.5 bg-white border border-outline-variant hover:bg-mist text-primary text-xs font-bold rounded-lg flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">add</span><span>Add photo</span>
+              </button>
+            </div>
+            <div id="gallery-container" class="space-y-4"></div>
+          </div>
+        </div>
+
+        <!-- TAB: ROADMAP -->
+        <div id="tab-roadmap" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Future Plans & Roadmap</h2>
+              <p class="text-xs text-on-surface-variant">Manage the timeline milestones for Kashmore, Kandhkot, Shikarpur & Ghotki.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Section Header</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="admin-label">Section Badge</label>
+                <input type="text" id="roadmap-badge" class="admin-input" />
+              </div>
+              <div>
+                <label class="admin-label">Section Title</label>
+                <input type="text" id="roadmap-title" class="admin-input" />
+              </div>
+            </div>
+            <div>
+              <label class="admin-label">Subtitle</label>
+              <textarea id="roadmap-subtitle" class="admin-input" rows="2"></textarea>
+            </div>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold text-sm text-primary">Roadmap Milestones</h3>
+              <button type="button" onclick="addRoadmapItem()" class="text-xs font-bold text-secondary hover:underline flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">add_circle</span>
+                <span>Add Milestone</span>
+              </button>
+            </div>
+            <div id="roadmap-items-container" class="space-y-4">
+              <!-- Rendered by admin.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: PLANTS & MAPS -->
+        <div id="tab-plants" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Locations & Maps</h2>
+              <p class="text-xs text-on-surface-variant">Add new plant locations, configure OpenStreetMap iframe coordinates, and set Google Maps pin URLs.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Section Header</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="admin-label">Section Badge</label>
+                <input type="text" id="plants-badge" class="admin-input" />
+              </div>
+              <div>
+                <label class="admin-label">Section Title (e.g. "Kashmore Plant" or "Our Plants")</label>
+                <input type="text" id="plants-title" class="admin-input" />
+              </div>
+            </div>
+            <div>
+              <label class="admin-label">Section Subtitle</label>
+              <textarea id="plants-subtitle" class="admin-input" rows="2"></textarea>
+            </div>
+          </div>
+
+          <!-- Locations List -->
+          <div class="admin-card searchable-card space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="font-bold text-sm text-primary">Operating Facilities & Plants</h3>
+                <p class="text-xs text-on-surface-variant">Add more plants here anytime. Each location gets its own map pin and Google Maps link.</p>
+              </div>
+              <button type="button" onclick="addPlantLocation()" class="px-3.5 py-1.5 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all flex items-center gap-1">
+                <span class="material-symbols-outlined text-sm">add_location_alt</span>
+                <span>Add Plant Location</span>
+              </button>
+            </div>
+            <div id="plant-locations-container" class="space-y-6">
+              <!-- Rendered by admin.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: QUOTES & PARALLAX -->
+        <div id="tab-quotes" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Quotes & Parallax Backgrounds</h2>
+              <p class="text-xs text-on-surface-variant">Update quotes and set custom background images with recommended widescreen dimensions.</p>
+            </div>
+            <button type="button" onclick="saveSection()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Changes</button>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Story Bridge Quote</h3>
+            <div>
+              <label class="admin-label">Quote Opening</label>
+              <input type="text" id="quote-story-main" class="admin-input" />
+            </div>
+            <div>
+              <label class="admin-label">Highlighted Line (Teal Accent)</label>
+              <input type="text" id="quote-story-highlight" class="admin-input" />
+            </div>
+            <div>
+              <label class="admin-label">Attribution</label>
+              <input type="text" id="quote-story-attr" class="admin-input" />
+            </div>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">UN Human Right to Water Quote</h3>
+            <div>
+              <label class="admin-label">Quote Opening</label>
+              <textarea id="quote-un-main" class="admin-input" rows="2"></textarea>
+            </div>
+            <div>
+              <label class="admin-label">Highlighted Line</label>
+              <input type="text" id="quote-un-highlight" class="admin-input" />
+            </div>
+            <div>
+              <label class="admin-label">Attribution</label>
+              <input type="text" id="quote-un-attr" class="admin-input" />
+            </div>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary flex items-center justify-between">
+              <span>Parallax Background Images</span>
+              <span class="badge-hint">Recommended: 1920 x 1080 px (16:9)</span>
+            </h3>
+            <p class="text-xs text-on-surface-variant">Leave blank to use the default high-performance dark teal glass gradients.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="admin-label">Story Bridge Background</label>
+                <input type="text" id="bg-storyBridge" class="admin-input" placeholder="Image URL..." />
+              </div>
+              <div>
+                <label class="admin-label">Kashmore Section Background</label>
+                <input type="text" id="bg-kashmore" class="admin-input" placeholder="Image URL..." />
+              </div>
+              <div>
+                <label class="admin-label">UN Quote Background</label>
+                <input type="text" id="bg-rightToWater" class="admin-input" placeholder="Image URL..." />
+              </div>
+              <div>
+                <label class="admin-label">Donate Section Background</label>
+                <input type="text" id="bg-donate" class="admin-input" placeholder="Image URL..." />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: REPO SETTINGS & BACKUP -->
+        <div id="tab-settings" class="tab-panel hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-outline-variant pb-3">
+            <div>
+              <h2 class="font-serif text-xl sm:text-2xl font-bold text-primary">Repository Settings & Transfer</h2>
+              <p class="text-xs text-on-surface-variant">Configure GitHub target repository when transferring to the client's account.</p>
+            </div>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">GitHub Target Repository</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label class="admin-label">Repo Owner / Org</label>
+                <input type="text" id="settings-owner" class="admin-input" />
+              </div>
+              <div>
+                <label class="admin-label">Repository Name</label>
+                <input type="text" id="settings-repo" class="admin-input" />
+              </div>
+              <div>
+                <label class="admin-label">Branch</label>
+                <input type="text" id="settings-branch" class="admin-input" />
+              </div>
+            </div>
+            <button type="button" onclick="updateRepoSettings()" class="px-4 py-2 bg-secondary text-white text-xs font-bold rounded-xl hover:bg-primary transition-all">Save Repository Settings</button>
+          </div>
+
+          <div class="admin-card searchable-card space-y-4">
+            <h3 class="font-bold text-sm text-primary">Database Backup & Export</h3>
+            <p class="text-xs text-on-surface-variant">Download the current db.json file or restore previous backup.</p>
+            <div class="flex flex-wrap gap-3">
+              <button type="button" onclick="downloadDbJson()" class="px-4 py-2 border border-outline-variant hover:bg-mist text-primary text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all">
+                <span class="material-symbols-outlined text-sm">download</span>
+                <span>Download db.json</span>
+              </button>
+              <button type="button" onclick="restorePreviousBackup()" class="px-4 py-2 border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all">
+                <span class="material-symbols-outlined text-sm">restore</span>
+                <span>Restore db.backup.json</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- PASSWORD MODAL FOR DEVELOPER CREDIT -->
+  <div id="modal-password" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl border border-outline-variant space-y-4">
+      <div class="flex items-center gap-3">
+        <span class="w-10 h-10 rounded-full bg-secondary/10 text-secondary flex items-center justify-center">
+          <span class="material-symbols-outlined">key</span>
+        </span>
+        <div>
+          <h3 class="font-serif text-lg font-bold text-primary">Developer Security</h3>
+          <p class="text-xs text-on-surface-variant">Enter password to edit Codem credit link.</p>
+        </div>
+      </div>
+      <div>
+        <label class="admin-label">Developer Password</label>
+        <input type="password" id="dev-password-input" class="admin-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')verifyDevPassword()" />
+      </div>
+      <div class="flex gap-2 pt-2">
+        <button type="button" onclick="verifyDevPassword()" class="flex-1 py-2.5 bg-secondary hover:bg-primary text-white text-xs font-bold rounded-xl transition-all">Unlock</button>
+        <button type="button" onclick="closePasswordModal()" class="py-2.5 px-4 border border-outline-variant text-on-surface-variant text-xs font-semibold rounded-xl hover:bg-mist transition-all">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- Admin JavaScript Engine -->
+  <script src="./config.js"></script>
+  <script src="./admin.js"></script>
+</body>
+</html>

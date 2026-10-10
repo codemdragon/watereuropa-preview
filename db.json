@@ -1,0 +1,396 @@
+{
+  "branding": {
+    "siteTitle": "Water Europa: Clean Drinking Water for Underserved Rural Communities",
+    "metaDescription": "Water Europa is a community water initiative in Kashmore, Sindh, Pakistan, using reverse osmosis to turn saline groundwater into safe drinking water.",
+    "logoUrl": "./Logo.png",
+    "brandName": "WATER EUROPA",
+    "brandSubtitle": "Community Water Initiative",
+    "footerDescription": "Water Europa is a community water initiative based in Kashmore, Sindh, Pakistan. The project focuses on making safe drinking water more accessible to local families.",
+    "footerCreditText": "Designed by",
+    "footerCreditAuthor": "Codem",
+    "footerCreditUrl": "https://portfolio-future-nine.vercel.app",
+    "footerTagline": "Designed with 💧 for a better tomorrow"
+  },
+  "navigation": [
+    {
+      "label": "Home",
+      "url": "#hero"
+    },
+    {
+      "label": "The Crisis",
+      "url": "#mission"
+    },
+    {
+      "label": "Our Story",
+      "url": "#story"
+    },
+    {
+      "label": "Kashmore",
+      "url": "#kashmore"
+    },
+    {
+      "label": "Future Plans",
+      "url": "#roadmap"
+    },
+    {
+      "label": "Location",
+      "url": "#where-we-are"
+    },
+    {
+      "label": "Support us",
+      "url": "#donate"
+    }
+  ],
+  "floatingWidget": {
+    "platform": "whatsapp",
+    "numberOrHandle": "920000000000",
+    "message": "Hello Water Europa team!",
+    "label": "Chat with us",
+    "enabled": true
+  },
+  "contact": {
+    "email": "example@gmail.com",
+    "phone": "+92 300 0000000",
+    "locationText": "Kashmore, Sindh, Pakistan",
+    "formspreeUrl": "https://formspree.io/f/xyz"
+  },
+  "donation": {
+    "showTiers": true,
+    "title": "Help Keep the Clean Water Flowing",
+    "text": "Your support helps keep the Kashmore plant running and brings the next plant in Kandhkot closer. Choose a preset amount to connect with us on WhatsApp, or send a direct message below.",
+    "tiersLabel": "SELECT PLEDGE AMOUNT (USD) & MESSAGE ON WHATSAPP",
+    "helperText": "Click below to open a pre-filled WhatsApp message directly with our team.",
+    "buttonLabel": "Request payment details on WhatsApp",
+    "selectedPrefix": "Selected:",
+    "messageTemplate": "Hello Water Europa team! I would like to donate {amount}. Please share your payment details.",
+    "genericMessage": "Hello Water Europa team! I would like to donate. Please share your payment details.",
+    "allowCustomAmount": false,
+    "customAmountPlaceholder": "Or enter your own amount",
+    "defaultTierIndex": 1,
+    "tiers": [
+      {
+        "amount": "$10",
+        "note": "",
+        "enabled": true
+      },
+      {
+        "amount": "$20",
+        "note": "",
+        "enabled": true
+      },
+      {
+        "amount": "$50",
+        "note": "",
+        "enabled": true
+      },
+      {
+        "amount": "$100",
+        "note": "",
+        "enabled": true
+      }
+    ]
+  },
+  "hero": {
+    "badge": "Water Europa • Kashmore Project",
+    "title": "Making safe drinking water more accessible to local families.",
+    "description": "A community-level reverse osmosis water facility in Kashmore, Sindh providing purified drinking water to rural families facing high groundwater salinity and chemical runoff.",
+    "ctaPrimary": {
+      "label": "Support our work",
+      "url": "#donate"
+    },
+    "ctaSecondary": {
+      "label": "Learn about the project",
+      "url": "#story"
+    },
+    "stats": [
+      {
+        "value": "250+",
+        "label": "People served daily"
+      },
+      {
+        "value": "July 2024",
+        "label": "Operating since"
+      },
+      {
+        "value": "$0.07",
+        "label": "Per gallon"
+      },
+      {
+        "value": "$10,000+",
+        "label": "Funds raised"
+      }
+    ],
+    "carousel": [
+      {
+        "id": "slide1",
+        "badge": "Slide 01 • Community Access",
+        "caption": "Families in Kashmore collect purified drinking water from the facility.",
+        "imageUrl": "./with people.jpeg",
+        "recommendedSize": "1200 x 800 px (3:2 ratio)"
+      },
+      {
+        "id": "slide2",
+        "badge": "Slide 02 • Kashmore Facility",
+        "caption": "A community-level reverse osmosis (RO) water facility in Kashmore.",
+        "imageUrl": "./machinery.jpeg",
+        "recommendedSize": "1200 x 800 px (3:2 ratio)"
+      },
+      {
+        "id": "slide3",
+        "badge": "Slide 03 • The Area",
+        "caption": "The streets of Kashmore — a community in need of clean, accessible water.",
+        "imageUrl": "./Street.jpeg",
+        "recommendedSize": "1200 x 800 px (3:2 ratio)"
+      }
+    ]
+  },
+  "parallaxBackgrounds": {
+    "storyBridgeBg": {
+      "imageUrl": "./Tents.jpeg",
+      "recommendedSize": "1920 x 1080 px (16:9 widescreen)"
+    },
+    "kashmoreBg": {
+      "imageUrl": "./Street2.jpeg",
+      "recommendedSize": "1920 x 1080 px (16:9 widescreen)"
+    },
+    "rightToWaterBg": {
+      "imageUrl": "./drybuildings.jpeg",
+      "recommendedSize": "1920 x 1080 px (16:9 widescreen)"
+    },
+    "donateBg": {
+      "imageUrl": "./with people.jpeg",
+      "recommendedSize": "1920 x 1080 px (16:9 widescreen)"
+    }
+  },
+  "quotes": {
+    "storyBridge": {
+      "quote": "Every glass of clean water we deliver",
+      "highlight": "is a child who doesn't miss school",
+      "suffix": "because they're sick.",
+      "attribution": "Water Europa"
+    },
+    "unQuote": {
+      "quote": "The human right to water is indispensable for leading a life in human dignity.",
+      "highlight": "It is a prerequisite for the realization of other human rights.",
+      "attribution": "Article I.1, U.N. Committee on Economic, Social and Cultural Rights, November 2002"
+    }
+  },
+  "crisis": {
+    "badge": "Groundwater Quality Challenge",
+    "title": "What problem is Water Europa trying to solve?",
+    "p1": "Kashmore faces serious challenges with access to safe drinking water. Groundwater in the area is highly saline, while chemical dumping has also contributed to concerns about local water quality.",
+    "p2": "For many families, accessing usable drinking water can require traveling 20km to the nearest water source and transporting water back home or purchasing expensive branded water. This makes access difficult, especially for rural communities with limited infrastructure and affordability.",
+    "stat1": {
+      "label": "Travel for many families",
+      "value": "20km",
+      "sub": "To the nearest water source"
+    },
+    "stat2": {
+      "label": "Water Europa, as low as",
+      "value": "$0.07/gallon",
+      "sub": "Affordable, purified drinking water"
+    },
+    "image": {
+      "url": "./drybuildings.jpeg",
+      "caption": "The arid landscape of Kashmore — a region where accessing safe water is a daily struggle",
+      "tag": "Kashmore, Sindh",
+      "recommendedSize": "1000 x 800 px (5:4 ratio)"
+    }
+  },
+  "story": {
+    "badge": "OUR ORIGIN",
+    "title": "Why Water Europa Started",
+    "q1Title": "How did the facility come together?",
+    "q1Text1": "The facility operates from a space provided by my uncle in Kashmore, which allowed us to establish the project without having to take on a separate rental cost for the location.",
+    "q1Text2": "The RO machinery was arranged and transported from Karachi.",
+    "q1Attribution": "Somil Keswani, Co-Founder & Project Lead",
+    "q2Title": "How is the project funded?",
+    "q2Text1": "Water Europa has raised $10,000+ to support the project.",
+    "q2Text2": "Funds have been used toward establishing and operating the facility, including equipment, maintenance, transportation, repairs, and other project expenses.",
+    "founders": [
+      {
+        "id": "dewan",
+        "name": "Dewan Keswani",
+        "role": "Founder",
+        "imageUrl": "./Dewan.jpeg",
+        "objectPosition": "center 20%",
+        "recommendedSize": "800 x 1000 px (4:5 portrait)",
+        "bio": "Founder of Water Europa, the community water initiative based in Kashmore, Sindh."
+      },
+      {
+        "id": "aman",
+        "name": "Aman Kumar",
+        "role": "Founder",
+        "imageUrl": "./Aman.jpeg",
+        "objectPosition": "center 65%",
+        "recommendedSize": "800 x 1000 px (4:5 portrait)",
+        "bio": "Founder of Water Europa, a project focused on making safe drinking water more accessible to local families."
+      },
+      {
+        "id": "somil",
+        "name": "Somil Keswani",
+        "role": "Co-Founder & Project Lead",
+        "imageUrl": "./Somil.jpeg",
+        "objectPosition": "center 30%",
+        "recommendedSize": "800 x 1000 px (4:5 portrait)",
+        "bio": "Project lead who arranged the Kashmore facility."
+      }
+    ]
+  },
+  "kashmore": {
+    "badge": "Kashmore RO Facility",
+    "title": "What does the Water Europa facility do?",
+    "p1": "The facility uses reverse osmosis and filtration to treat local groundwater and produce purified drinking water.",
+    "p2": "From groundwater to drinking water: here is how the plant treats it, step by step, and what the results look like.",
+    "treatmentProcess": {
+      "badge": "TREATMENT PROCESS",
+      "title": "How the water is treated",
+      "intro": "At Water Europa, our water treatment process begins by collecting groundwater in a storage tank.",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Carbon filtration",
+          "desc": "The water then passes through carbon-filtering vessels, which help remove impurities."
+        },
+        {
+          "step": 2,
+          "title": "Sediment filtration",
+          "desc": "A series of pipes carry it through sediment filtration to remove accumulated dirt and suspended particles."
+        },
+        {
+          "step": 3,
+          "title": "Reverse Osmosis (RO)",
+          "desc": "Next, water pumps send the filtered water into the Reverse Osmosis (RO) system, which uses specialised membranes, imported from the USA and supplied by Toray Membrane USA, Inc., to remove dissolved salts and other impurities."
+        },
+        {
+          "step": 4,
+          "title": "Storage & antibacterial filter",
+          "desc": "Finally, the treated water is stored and passed through an additional antibacterial rod filter before distribution to the local community."
+        }
+      ],
+      "antiscalantNote": "An automatic dosing pump injects antiscalant into the system to prevent mineral deposits from accumulating on the RO membranes, helping maintain filtration efficiency.",
+      "waterQuality": {
+        "title": "Water quality (TDS)",
+        "desc": "Our plant uses groundwater with an initial Total Dissolved Solids (TDS) level of approximately 2200 ppm. The RO membrane rejects approximately 95 to 97% of the dissolved salts, lowering the TDS level to around 120 to 130 ppm, depending on the season. During June and July, the treated water's TDS level can fall to approximately 60 to 70 ppm.",
+        "stats": [
+          {
+            "label": "Groundwater TDS",
+            "value": "~2200 ppm",
+            "tone": "danger"
+          },
+          {
+            "label": "Salts rejected",
+            "value": "95 to 97%",
+            "tone": "default"
+          },
+          {
+            "label": "Treated TDS",
+            "value": "120 to 130 ppm",
+            "tone": "teal"
+          },
+          {
+            "label": "June & July",
+            "value": "60 to 70 ppm",
+            "tone": "teal"
+          }
+        ]
+      }
+    },
+    "gallery": [
+      {
+        "title": "The RO Plant",
+        "caption": "Inside the Kashmore RO facility — the machinery that makes clean water possible",
+        "imageUrl": "./machinery.jpeg",
+        "recommendedSize": "600 x 400 px (3:2 ratio)"
+      },
+      {
+        "title": "The Community",
+        "caption": "Families in Kashmore who depend on clean water every day",
+        "imageUrl": "./with people.jpeg",
+        "recommendedSize": "600 x 400 px (3:2 ratio)"
+      },
+      {
+        "title": "Kashmore Area",
+        "caption": "The streets of Kashmore — the community Water Europa serves",
+        "imageUrl": "./Street2.jpeg",
+        "recommendedSize": "600 x 400 px (3:2 ratio)"
+      }
+    ]
+  },
+  "roadmap": {
+    "badge": "WHERE WE ARE HEADED",
+    "title": "Future Plans",
+    "subtitle": "The longer term goal is to expand beyond a single village. Scroll the journey, each milestone lights up as we pass it.",
+    "items": [
+      {
+        "id": "phase1",
+        "year": "2024",
+        "phase": "PHASE 01 • PROOF OF CONCEPT",
+        "title": "Kashmore Facility",
+        "status": "Operating",
+        "statusType": "completed",
+        "desc": "Our first plant, built to prove that community-run RO can work reliably in high-salinity Sindh."
+      },
+      {
+        "id": "phase2",
+        "year": "2027",
+        "phase": "PHASE 02 • FIRST EXPANSION",
+        "title": "Kandhkot",
+        "status": "Planned for early 2027",
+        "statusType": "upcoming",
+        "desc": "An adjacent village, Kandhkot provided us with the ideal setting needed to set up a RO Plant. With sufficient funds collected and field work such as location analysis carried out, the plan is to launch this plant in 2027."
+      },
+      {
+        "id": "phase3",
+        "year": "2027+",
+        "phase": "PHASE 03 • REGIONAL REACH",
+        "title": "Shikarpur & Ghotki",
+        "status": "Late 2027 & beyond",
+        "statusType": "future",
+        "desc": "After Kandhkot, we plan to expand to Shikarpur and Ghotki in late 2027."
+      }
+    ]
+  },
+  "plants": {
+    "sectionBadge": "WHERE WE OPERATE",
+    "sectionTitle": "Kashmore, Sindh Our First Plant",
+    "sectionSubtitle": "A community-level RO facility in a space provided by a family member, with machinery brought in from Karachi.",
+    "locations": [
+      {
+        "id": "kashmore",
+        "name": "Kashmore Facility",
+        "region": "Kashmore, Sindh",
+        "status": "Operational",
+        "peopleServed": "Community-run, serving local families daily",
+        "process": "Reverse osmosis and filtration",
+        "pricing": "Affordable purified drinking water",
+        "osmEmbedUrl": "https://www.openstreetmap.org/export/embed.html?bbox=69.4800%2C28.3800%2C69.6200%2C28.4700&layer=mapnik&marker=28.4200%2C69.5600",
+        "googleMapsUrl": "https://www.google.com/maps/search/Kashmore+Sindh+Pakistan"
+      }
+    ]
+  },
+  "breatherStat": {
+    "number": "250+",
+    "title": "people have clean, safe drinking water in Kashmore every single day.",
+    "ctaText": "Be part of this",
+    "ctaUrl": "#donate"
+  },
+  "verification": {
+    "contactEmail": false,
+    "contactPhone": false,
+    "whatsappNumber": false,
+    "formspreeUrl": false,
+    "photoHero1": true,
+    "photoHero2": true,
+    "photoHero3": true,
+    "photoCrisis": true,
+    "photoGallery1": true,
+    "photoGallery2": true,
+    "photoGallery3": true,
+    "pledgeAmounts": false,
+    "map_kashmore": false
+  },
+  "svgIcons": {
+    "waterDrop": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z\" /></svg>"
+  }
+}
